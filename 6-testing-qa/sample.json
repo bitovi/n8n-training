@@ -1,0 +1,68 @@
+{ "results" [
+  {
+    "id": 1,
+    "employee_name": "Bitsy McCodeface",
+    "role": "Automation Engineer",
+    "department": "AI Lab",
+    "mood_today": "🚀",
+    "tasks": [
+      { "task_id": "T101", "title": "Deploy coffee-fetching bot", "status": "In Progress", "priority": "High" },
+      { "task_id": "T102", "title": "Review PR: AI sarcasm detector", "status": "Pending Review", "priority": "Medium" }
+    ],
+    "performance_score": 92,
+    "favorite_snack": "Choco Pretzels"
+  },
+  {
+    "id": 2,
+    "employee_name": "Milo Datawhisper",
+    "role": "Data Analyst",
+    "department": "Insights",
+    "mood_today": "🤓",
+    "tasks": [
+      { "task_id": "T201", "title": "Generate report on emoji frequency", "status": "Completed", "priority": "Low" },
+      { "task_id": "T202", "title": "Analyze coffee bot engagement metrics", "status": "In Progress", "priority": "High" }
+    ],
+    "performance_score": 85,
+    "favorite_snack": "Trail Mix"
+  },
+  {
+    "id": 3,
+    "employee_name": "Luna Promptwright",
+    "role": "Prompt Engineer",
+    "department": "AI Enablement",
+    "mood_today": "🧠",
+    "tasks": [
+      { "task_id": "T301", "title": "Tune sarcasm detector prompts", "status": "In Progress", "priority": "High" },
+      { "task_id": "T302", "title": "Document system hallucination mitigation", "status": "Not Started", "priority": "Medium" }
+    ],
+    "performance_score": 88,
+    "favorite_snack": "Seaweed Chips"
+  },
+  {
+    "id": 4,
+    "employee_name": "Ziggy Opsworth",
+    "role": "DevOps Specialist",
+    "department": "Infrastructure",
+    "mood_today": "💀",
+    "tasks": [
+      { "task_id": "T401", "title": "Fix self-deploying container loop", "status": "Blocked", "priority": "Critical" },
+      { "task_id": "T402", "title": "Refactor CI pipeline to stop rebooting at 3AM", "status": "In Progress", "priority": "High" }
+    ],
+    "performance_score": 76,
+    "favorite_snack": "Energy Bars"
+  },
+  {
+    "id": 5,
+    "employee_name": "Nora Testbot",
+    "role": "Quality Engineer",
+    "department": "QE",
+    "mood_today": "😎",
+    "tasks": [
+      { "task_id": "T501", "title": "Automate chaos monkey tests", "status": "Completed", "priority": "High" },
+      { "task_id": "T502", "title": "Validate sarcasm detector accuracy", "status": "In Progress", "priority": "Medium" }
+    ],
+    "performance_score": 94,
+    "favorite_snack": "Spicy Popcorn"
+  }
+]
+}
