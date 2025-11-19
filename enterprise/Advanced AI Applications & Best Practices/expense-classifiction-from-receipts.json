@@ -1,0 +1,214 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json.output[0].content[0].text;\n\n// Remove markdown code blocks if present\nlet cleanJson = response.replace(/```json\\n?/g, '').replace(/```\\n?/g, '').trim();\n\ntry {\n  const parsed = JSON.parse(cleanJson);\n  \n  return {\n    json: {\n      ...parsed,\n      processed_at: new Date().toISOString(),\n    }\n  };\n} catch (error) {\n  return {\n    json: {\n      error: 'Failed to parse AI response',\n      raw_response: response,\n    }\n  };\n}"
+      },
+      "id": "0c998a6e-0726-4c1f-be0f-772366079bc8",
+      "name": "Parse AI Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## AI-Powered Expense Classification\n\n**WORKFLOW PURPOSE:**\nAutomate expense categorization from receipt images using AI\n\n**PROCESS FLOW:**\n1. Download receipt from Google Drive\n2. Send to OpenAI for text extraction and classification\n3. Parse structured response\n4. Log to expense tracking spreadsheet\n\n**AI CAPABILITIES:**\n* Natural language understanding\n* Pattern recognition in receipts\n* Structured data extraction\n* Category classification\n* Confidence scoring\n\n**BUSINESS VALUE:**\n* 90% reduction in manual data entry\n* Consistent categorization\n* Faster expense processing\n* Audit trail preservation",
+        "height": 620,
+        "width": 440,
+        "color": 4
+      },
+      "id": "664136a0-0d73-424f-b10f-40770ffb3272",
+      "name": "AI Workflow Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        112,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## AI Prompt Engineering\n\n**CRITICAL ELEMENTS:**\n1. **Role Definition:** \"You are a financial expense classifier\"\n2. **Clear Instructions:** Specific extraction requirements\n3. **Output Format:** Exact JSON structure\n4. **Constraints:** Category options, date format\n5. **Error Prevention:** \"Respond ONLY with valid JSON\"\n6. **Image attachment**: Remember to attach the file downloaded from Google Drive\n\n**COST OPTIMIZATION:**\n* Use GPT-5 mini/nano for simple receipts\n* Reserve GPT-5 for complex documents\n\n**REFERENCES:**\n- https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-langchain.openai/\n- https://openai.com/api/pricing/",
+        "height": 476,
+        "width": 460,
+        "color": 4
+      },
+      "id": "88abeecf-bae8-44d6-b69a-bf8e3915dd80",
+      "name": "AI Prompt Engineering",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**SETUP REQUIREMENTS:**\n1. Create Google Drive folder for receipts\n2. Upload 2-3 sample receipt PDFs\n3. Create Google Sheet with columns:\n   - Date, Vendor, Amount, Category, Confidence, Processed_At\n4. Set up OpenAI API credentials (requires account)\n5. Replace file URL and sheet ID placeholders\n\n**TASK 1: Basic Classification**\n* Execute workflow with one receipt\n* Verify text extraction quality\n* Check AI classification accuracy\n* Confirm data appears in sheet\n\n**TASK 2: Handle Errors**\n* Upload a corrupted/irrelevant image\n* Add validation for non-receipt graphics\n* Create friendly error message\n* Log errors to separate sheet\n\n**SUCCESS CRITERIA:**\n✓ Images download successfully\n✓ AI returns valid JSON\n✓ Data logs to spreadsheet\n✓ Error handling prevents failures",
+        "height": 620,
+        "width": 500,
+        "color": 3
+      },
+      "id": "9f6e2bbc-1c80-4991-bf87-2a3d84e11cb6",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "You are a financial expense classifier. \nAnalyze this receipt and extract:\n1. Vendor name\n2. Total amount\n3. Expense category (choose from: Meals & Entertainment, Travel, Office Supplies, Software/Technology, Professional Services, Other)\n4. Date of transaction\n5. Line items (names, SKUs if present)\n\nRespond ONLY with valid JSON in this exact format:\n{\"vendor\": \"<vendor_name>\",\n\"amount\": number,\n\"currency\": \"<currency>\",\n\"category\": \"<category_name>\",\n\"date\": \"YYYY-MM-DD\",\n\"line_items\": \"<item_1>, <item_2>, <item_n>\",\n\"confidence\": \"<high>/<medium>/<low>\"\n}\"\n"
+            },
+            {
+              "type": "image",
+              "imageType": "base64",
+              "binaryPropertyName": "data0"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2,
+      "position": [
+        656,
+        0
+      ],
+      "id": "c18d9139-3b33-47c7-bf54-c83a582766cb",
+      "name": "Generate a model response",
+      "credentials": {
+        "openAiApi": {
+          "id": "pJCSJ9Eccy2mdehk",
+          "name": "OpenAi account 13"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Response parsing\n\nLarge Language Models often output JSON data in the following format:\n\n\\```json\n{\n\"key_1\": \"value_1\";\n\"key_2\": value_2\n}\n\\```\n\nThe code node:\n- removes triple backticks at the front and at the back of the JSON object\n- removes the \"json\" word used to designate the programming language\n- adds item processing time",
+        "height": 476,
+        "width": 460,
+        "color": 4
+      },
+      "id": "8d77a171-40f8-40e7-9001-91c7358d4d1e",
+      "name": "AI Prompt Engineering1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "worksheet",
+        "operation": "append",
+        "workbook": {
+          "__rl": true,
+          "value": "01Q6GADRC4BYXWRW6DBRCIPRYGSB32K35Q",
+          "mode": "list",
+          "cachedResultName": "bitovi-test-sheet",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
+        },
+        "worksheet": {
+          "__rl": true,
+          "value": "{5107A4B5-ED1A-4535-A003-1B98DB0FB251}",
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&activeCell=Sheet2!A1"
+        },
+        "dataMode": "autoMap",
+        "options": {}
+      },
+      "id": "ff27e375-65f5-4148-b79e-5f560bd92795",
+      "name": "Log to expense tracker",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.1,
+      "position": [
+        1264,
+        0
+      ],
+      "credentials": {
+        "microsoftExcelOAuth2Api": {
+          "id": "SMRY4PtjXydzF09W",
+          "name": "Microsoft Excel account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        304,
+        0
+      ],
+      "id": "b3cd1d96-fac7-40d0-baf6-3e7712474d2e",
+      "name": "When chat message received",
+      "webhookId": "8818c705-4fbf-4991-ad68-8a657c94cd9a"
+    }
+  ],
+  "connections": {
+    "Parse AI Response": {
+      "main": [
+        [
+          {
+            "node": "Log to expense tracker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate a model response": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log to expense tracker": {
+      "main": [
+        []
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Generate a model response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

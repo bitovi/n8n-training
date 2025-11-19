@@ -1,0 +1,100 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e29295ca-cc08-48f1-b109-8db0f44f329d",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Error Trigger Node\n\n**WHAT IT DOES:**\n* Creates a separate error workflow\n* Automatically runs when linked workflow fails\n* Provides error details in structured format\n* Does not need to be activated\n\n**IMPORTANT:**\nThis node does not work with manually triggered workflows\n\n**ERROR DATA AVAILABLE:**\n* `workflow.name` - Failed workflow name\n* `execution.id` - Execution identifier\n* `error.message` - Error description\n* `error.node.name` - Which node failed\n* `execution.url` - Link to execution\n\n**SETUP:**\n1. Create new workflow\n2. Add Error Trigger as first node\n3. Add notification nodes\n4. Link in main workflow settings\n\n**REFERENCE:**\nhttps://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger/",
+        "height": 620,
+        "width": 460,
+        "color": 4
+      },
+      "id": "4b4066bd-c600-476c-937f-3cce5dad4399",
+      "name": "Error Trigger Details",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -96
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK**\n1. Set up Slack notifications in this workflow\n2. Go to the [example error workflow](https://shared-n8n.bitovi-ai.com/workflow/r3oMop6Q2SXsmx0Z)\n3. Make sure that the example workflow is linked to the error workflow (··· in the upper right corner -> Settings -> Error Workflow -> point to the error workflow called `Error Trigger`)\n4. Activate  the workflow\n4. Wait for 30 seconds and check if you got a Slack notification\n5. Fix the workflow to eliminate the error\n\n**SUCCESS CRITERIA:**\n✓ Friendly alerts sent appropriately\n✓ Error workflow activates on failure\n✓ Notifications include useful context",
+        "height": 540,
+        "width": 440,
+        "color": 3
+      },
+      "id": "a34aefbf-bbe1-4997-a21e-18ea3ef4da81",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        -96
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "a947b5dd-7a55-4c11-8b26-dcec7c1233e7",
+          "mode": "list",
+          "cachedResultName": "Bitovi"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:4596d452ef9c4f519219c845a23a99d1@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "n8n-test-notifications",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A4596d452ef9c4f519219c845a23a99d1%40thread.tacv2/n8n-test-notifications?groupId=a947b5dd-7a55-4c11-8b26-dcec7c1233e7&tenantId=905034ae-f04b-41ea-949d-52fc7248f90d&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "=🚨 Workflow Execution Failed<br>\n\nWorkflow: {{ $json.workflow.name }}<br>\nExecution ID: {{ $json.execution.id }}<br>\nError: {{ $json.execution.error.message }}<br>\nNode: {{ $json.execution.lastNodeExecuted }}<br>\n\nView Details: {{ $json.execution.url }}",
+        "options": {}
+      },
+      "id": "36a3d1f3-0b67-45b8-9b29-dd1c99c2ff8d",
+      "name": "Send Summary to Microsoft Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        80
+      ],
+      "webhookId": "3da929e2-6a89-4858-9e8f-a6b98bcc4d06",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "XbRR3L42WQFi9KLs",
+          "name": "Microsoft Teams account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Summary to Microsoft Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

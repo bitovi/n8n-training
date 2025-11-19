@@ -1,0 +1,291 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "10a1f3a7-e92d-4c04-8f3f-09841a2e924d",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        336,
+        -640
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "message",
+              "value": "Hello from n8n!",
+              "type": "string"
+            },
+            {
+              "id": "field2",
+              "name": "timestamp",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "field3",
+              "name": "execution_id",
+              "value": "={{ $execution.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "920ca2a5-ba36-4ade-891e-36fd76348a48",
+      "name": "Set Basic Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        992,
+        -640
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "3baf8ce0-ab9b-44ce-9231-de2fc5b7a218",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        496
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field2",
+              "name": "execution_type",
+              "value": "Scheduled execution",
+              "type": "string"
+            },
+            {
+              "id": "field1",
+              "name": "scheduled_execution_time",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "field3",
+              "name": "day_of_week",
+              "value": "={{ $now.format('EEEE') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "edd11a8e-c84a-4269-8dfb-c73dcae5aba3",
+      "name": "Set Schedule Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        784,
+        496
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Manual Trigger\n\n**WHAT IT DOES:**\n- Provides manual execution button\n- You control when workflow runs\n- Perfect for testing\n\n**HOW TO USE:**\n1. Click \"Execute Workflow\" button\n2. Watch data flow through nodes\n3. Check output in each node\n\n**USE CASES:**\n- Workflows that need to be started manually at arbitrary times\n- Workflow testing",
+        "height": 388,
+        "width": 400,
+        "color": 4
+      },
+      "id": "cbd2a7ed-f29b-44ce-b5eb-ed77156f140e",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -496
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Schedule Trigger\n\n**WHAT IT DOES:**\n- Runs workflow automatically\n- Executes workflow at a specified time\n\n**CONFIGURATION:**\n- Currently: Every 5 minutes\n- Node is disabled until activated\n\n**HOW TO USE:**\n1. Enable this node (select all nodes in the workflow and press D)\n2. SAVE workflow (Ctrl+S)\n3. ACTIVATE workflow (toggle at top)\n4. Wait 1 minute\n5. Check Executions tab\n\n**IMPORTANT:**\n- Must SAVE before activating\n- Must ACTIVATE for schedule to work\n- Check your timezone settings\n\n**USE CASES:**\n- Scheduled hourly market data collection\n- Daily EOD report generation\n- Sending automated reminders for missing invoices.",
+        "height": 620,
+        "width": 400,
+        "color": 4
+      },
+      "id": "e902101b-0ce2-4ffe-90d5-c0c401fcded0",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        80,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Set Node\n\n**WHAT IT DOES:**\n* Creates or modifies data within the workflow\n* Lets you define static values or map data from previous nodes\n* Useful for shaping the data before sending it onward\n\n**HOW TO USE:**\n1. Add fields and assign values (static or from expressions)\n2. Enable only the fields you want to include\n3. Connect it after another node to transform that node’s output\n\n**USE CASES:**\n* Cleaning or restructuring incoming data\n* Creating new variables for later steps\n* Preparing payloads for API requests or logic checks",
+        "height": 496,
+        "width": 380,
+        "color": 4
+      },
+      "id": "e7a061e3-745b-41dd-9233-191b807b4bfa",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        976,
+        -496
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\n- Modify the Set node to add your name in a \"user_name\" field\n- Check the result in the Set Basic Data node output\n\n**SUCCESS:**\n✓ Workflow executes without errors\n✓ All fields appear in output\n✓ Timestamp is current",
+        "height": 304,
+        "width": 352,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1744,
+        -496
+      ],
+      "typeVersion": 1,
+      "id": "9492f1df-0221-4ac8-b59d-c17513a6b82e",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\n- Change schedule to: daily at _2 minutes from your current time_ (e.g. set to 10:02 am if currently it's 10:00 am)\n- Enable nodes\n- Save the workflow\n- Activate the workflow\n- Check the result in the Set Schedule Data node output in 5 minutes\n\n**SUCCESS:**\n✓ Workflow executes without errors\n✓ All fields appear in output\n✓ Timestamp is current",
+        "height": 336,
+        "width": 512,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        480,
+        96
+      ],
+      "typeVersion": 1,
+      "id": "d5ec6878-6022-4d4d-8636-0cd44ad9cce2",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "## Node Connection Line\n\n**WHAT IT DOES:**\n* Passes data from one node to the next\n* Defines the execution order of the workflow\n* Ensures each step receives input from the previous one\n* One node can be connected to multiple nodes\n\n**HOW TO USE:**\n1. Click and drag from the small circle on one node to another\n2. Release to create a connection\n3. Data output from the first node becomes input for the next\n\n**USE CASES:**\n* Passing data from one node to another\n",
+        "height": 432,
+        "width": 380,
+        "color": 4
+      },
+      "id": "821633ea-9d7b-42e9-9fd5-c17a31891218",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        528,
+        -560
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Example\n\n**FIELDS:**\n- message: Static text\n- timestamp: Dynamic expression\n- execution_id: System variable\n\n**EXPRESSIONS:**\n`{{ $now }}` - Current time\n`{{ $execution.id }}` - Unique ID\n`{{ $json.fieldName }}` - Access data\n\n**TRY THIS:**\nAdd a new field:\n- Name: \"days_until_month_end\"\n- Value: `{{ $now.endOf('month').diff($now, 'days') }}`",
+        "height": 400,
+        "width": 380,
+        "color": 4
+      },
+      "id": "c609d991-9bf3-40c7-b5ed-9a905632fe40",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        -496
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "message",
+              "value": "This node is now connected to the manual trigger!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "732b53f0-28d4-4b28-97d8-d263ad119ef7",
+      "name": "Try connecting this node",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        656,
+        -896
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\nConnect this node to the Manual Trigger node\n\n**SUCCESS:**\n✓ Workflow executes without errors\n✓ The message appears in the output of this node after the workflow execution",
+        "height": 224,
+        "width": 352,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        848,
+        -960
+      ],
+      "typeVersion": 1,
+      "id": "493bf84d-3ac7-4bee-8039-b4fbdf1245dc",
+      "name": "Sticky Note10"
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Basic Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Basic Data": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Schedule Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

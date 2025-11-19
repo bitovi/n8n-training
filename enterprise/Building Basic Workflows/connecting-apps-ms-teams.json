@@ -1,0 +1,162 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "869ac7de-ccca-4f02-9de3-6080b60b7b35",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "customer",
+              "value": "Acme Corp",
+              "type": "string"
+            },
+            {
+              "id": "field2",
+              "name": "amount",
+              "value": 25000,
+              "type": "number"
+            },
+            {
+              "id": "field3",
+              "name": "status",
+              "value": "approved",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ed0489f6-f42e-4bb7-b470-58cf19a01527",
+      "name": "Simulate Transaction Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -240,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Slack Node\n\n**WHAT IT DOES:**\n* Sends messages to Slack channels or users\n* Can create channels, update messages, add reactions\n* Supports rich formatting with attachments and blocks\n* Requires Slack app with OAuth token\n\n**HOW TO USE:**\n1. Create [Slack app](https://api.slack.com/apps) in workspace\n2. Follow instructions on [this page](https://docs.n8n.io/integrations/builtin/credentials/slack/) for the next steps\n3. Add required scopes: in this example, it's `chat:write` to send private messages to users\n4. Install app to workspace\n5. Copy Bot OAuth Token to n8n credentials\n6. Select channel and compose message\n\n**AUTHENTICATION:**\n* OAuth2 or Access Token\n* Scopes determine permissions\n\n**LIMITATIONS:**\n* Token rotation must be OFF for production\n* Rate limits apply per workspace\n\n**USE CASES:**\n* Real-time transaction alerts\n* System error notifications\n* Daily report summaries\n* Team collaboration updates\n\n**REFERENCE:**\nhttps://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.slack/",
+        "height": 796,
+        "width": 400,
+        "color": 4
+      },
+      "id": "14bcec8d-4ae7-48cc-9ab2-9a583e32a4b6",
+      "name": "Concept",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        32,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Example\n\n**MESSAGE FORMATTING:**\n* Use expressions to insert dynamic data\n* Format: `{{ $json.fieldName }}`\n* Supports markdown formatting\n\n**CHANNEL SELECTION:**\n* Public channels: #channel-name\n* Private channels: Use channel ID\n* Direct messages: @username or user ID",
+        "height": 472,
+        "width": 400,
+        "color": 4
+      },
+      "id": "1e3a5da3-b820-47da-b889-0f42db1b5811",
+      "name": "Example Details",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        432,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\n1. Create a Slack app in your workspace\n2. Add scopes: chat:write, channels:read\n3. Install app and copy Bot OAuth Token\n4. Create Slack credentials in n8n\n5. Change user ID to your user ID\n6. Modify message to include transaction status\n7. Execute and verify message appears\n\n**SUCCESS CRITERIA:**\n✓ Message posts to your chat with the bot\n✓ Dynamic values display correctly\n✓ Formatting renders properly",
+        "height": 400,
+        "width": 380,
+        "color": 3
+      },
+      "id": "d5f61325-33e6-42d9-bbfc-b0a9f7feed60",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        832,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "a947b5dd-7a55-4c11-8b26-dcec7c1233e7",
+          "mode": "list",
+          "cachedResultName": "Bitovi"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:4596d452ef9c4f519219c845a23a99d1@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "n8n-test-notifications",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A4596d452ef9c4f519219c845a23a99d1%40thread.tacv2/n8n-test-notifications?groupId=a947b5dd-7a55-4c11-8b26-dcec7c1233e7&tenantId=905034ae-f04b-41ea-949d-52fc7248f90d&allowXTenantAccess=True&ngc=True"
+        },
+        "message": "=Transaction Alert: ${{ $json.amount }} processed for {{ $json.customer }}",
+        "options": {}
+      },
+      "id": "1ecc90f5-e307-4887-a612-8476323387f8",
+      "name": "Send Summary to Microsoft Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        32,
+        -144
+      ],
+      "webhookId": "3da929e2-6a89-4858-9e8f-a6b98bcc4d06",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "XbRR3L42WQFi9KLs",
+          "name": "Microsoft Teams account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Simulate Transaction Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simulate Transaction Data": {
+      "main": [
+        [
+          {
+            "node": "Send Summary to Microsoft Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

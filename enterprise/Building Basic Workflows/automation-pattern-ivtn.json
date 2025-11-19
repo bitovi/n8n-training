@@ -1,0 +1,327 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "5789ba46-96fe-434b-9089-fea2da752ff9",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "customer_id",
+              "value": "CUST-001",
+              "type": "string"
+            },
+            {
+              "id": "field2",
+              "name": "amount",
+              "value": 5000,
+              "type": "number"
+            },
+            {
+              "id": "field3",
+              "name": "currency",
+              "value": "USD",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1429f908-762c-4458-aa95-538d04a9288b",
+      "name": "1. Import Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -448,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "condition1",
+              "leftValue": "={{ $json.amount }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "condition2",
+              "leftValue": "={{ $json.customer_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8c74e7db-b91c-4d33-beee-3b2af25f2de7",
+      "name": "2. Validate Data",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "amount_with_fee",
+              "value": "={{ $json.amount * 1.025 }}",
+              "type": "number"
+            },
+            {
+              "id": "field2",
+              "name": "fee",
+              "value": "={{ $json.amount * 0.025 }}",
+              "type": "number"
+            },
+            {
+              "id": "field3",
+              "name": "processed_date",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "field4",
+              "name": "status",
+              "value": "validated",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "703399ea-fba6-459b-bff9-09e682123d8a",
+      "name": "3. Transform Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Automation Pattern\n\n**PATTERN: Import → Validate → Transform → Notify**\n\n**PURPOSE:**\nStandard workflow for data processing that ensures data quality and team visibility\n\n**STEPS:**\n1. Import: Receive or fetch data from source\n2. Validate: Check data meets requirements\n3. Transform: Calculate and enrich data\n4. Notify: Alert team of results\n\n**BENEFITS:**\n* Consistent data processing\n* Early error detection\n* Audit trail through notifications\n* Clear separation of concerns",
+        "height": 460,
+        "width": 420,
+        "color": 4
+      },
+      "id": "4e94b0cb-f9d9-43b9-a8f6-1d0339c1343a",
+      "name": "Pattern Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Validation Logic\n\n**IF NODE:**\n* Checks multiple conditions\n* Routes to TRUE or FALSE path\n* Combines with AND/OR logic\n\n**THIS EXAMPLE:**\n* Amount must be > 0\n* Customer ID must not be empty\n* Both must be true (AND)\n\n**FAILURE HANDLING:**\n* FALSE path goes to error notification\n* TRUE path continues processing\n* Prevents bad data from propagating",
+        "height": 420,
+        "width": 400,
+        "color": 4
+      },
+      "id": "fa2c4938-8851-4cb8-a72c-01118374f2b6",
+      "name": "Validation Details",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\n1. Add validation for currency field (must be USD)\n2. Add transform step calculating tax (7% of amount)\n3. Include tax amount in notification message\n4. Test with valid and invalid data\n5. Create Google Sheets node to log all processed transactions\n\n**SUCCESS CRITERIA:**\n✓ Invalid currency triggers error path\n✓ Tax calculated correctly\n✓ Both notifications work\n✓ Valid transactions logged to sheet",
+        "height": 400,
+        "width": 420,
+        "color": 3
+      },
+      "id": "587eea92-c44c-414b-9706-7ac83589e985",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        144,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "a947b5dd-7a55-4c11-8b26-dcec7c1233e7",
+          "mode": "list",
+          "cachedResultName": "Bitovi"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:4596d452ef9c4f519219c845a23a99d1@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "n8n-test-notifications",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A4596d452ef9c4f519219c845a23a99d1%40thread.tacv2/n8n-test-notifications?groupId=a947b5dd-7a55-4c11-8b26-dcec7c1233e7&tenantId=905034ae-f04b-41ea-949d-52fc7248f90d&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "=✓ Transaction Processed:<br>\nCustomer: {{ $('1. Import Data').item.json.customer_id }}<br>\nCurrency: {{ $('1. Import Data').item.json.currency }}<br>\nAmount: ${{ $('1. Import Data').item.json.amount }}<br>\nFee: ${{ $json.fee }}<br>\nTotal: ${{ $json.amount_with_fee }}<br>",
+        "options": {}
+      },
+      "id": "7d9c778a-ec59-4487-807f-8e5fc355fd45",
+      "name": "Send Summary to Microsoft Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "webhookId": "3da929e2-6a89-4858-9e8f-a6b98bcc4d06",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "XbRR3L42WQFi9KLs",
+          "name": "Microsoft Teams account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Note to self\nuse <br> tags and use HTML format for proper formatting of the message in the messenger —include that in the explainer notes ",
+        "height": 240,
+        "width": 352,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        672,
+        -48
+      ],
+      "typeVersion": 1,
+      "id": "b3cb24c7-a7a0-4355-8a9c-efd640e23bb3",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "a947b5dd-7a55-4c11-8b26-dcec7c1233e7",
+          "mode": "list",
+          "cachedResultName": "Bitovi"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:4596d452ef9c4f519219c845a23a99d1@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "n8n-test-notifications",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A4596d452ef9c4f519219c845a23a99d1%40thread.tacv2/n8n-test-notifications?groupId=a947b5dd-7a55-4c11-8b26-dcec7c1233e7&tenantId=905034ae-f04b-41ea-949d-52fc7248f90d&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "=⚠ Validation Failed:<br>\nReason: Invalid amount or no customer ID<br>\nCustomer: {{ $('1. Import Data').item.json.customer_id }}<br>\nAmount: {{ $('1. Import Data').item.json.amount }}",
+        "options": {}
+      },
+      "id": "65283150-0786-4ddb-8b49-d33b959816ba",
+      "name": "Send Summary to Microsoft Teams1",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        0,
+        176
+      ],
+      "webhookId": "3da929e2-6a89-4858-9e8f-a6b98bcc4d06",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "XbRR3L42WQFi9KLs",
+          "name": "Microsoft Teams account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "1. Import Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Import Data": {
+      "main": [
+        [
+          {
+            "node": "2. Validate Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Validate Data": {
+      "main": [
+        [
+          {
+            "node": "3. Transform Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Summary to Microsoft Teams1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Transform Data": {
+      "main": [
+        [
+          {
+            "node": "Send Summary to Microsoft Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

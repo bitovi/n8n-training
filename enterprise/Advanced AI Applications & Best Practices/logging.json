@@ -1,0 +1,145 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://postman-echo.com/get",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "This is a message for our API request!"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e6e455c7-ea43-4f95-a02a-d0bac0c4005d",
+      "name": "Call External API (with Retry)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        112,
+        112
+      ],
+      "retryOnFail": true,
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "content_length",
+              "value": "={{ $json.headers['content-length'] }}"
+            }
+          ]
+        }
+      },
+      "id": "3fa401ca-d849-4a46-bc1f-543e9d6d77db",
+      "name": "Log Successful Execution",
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        304,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "content": "##EXECUTION LOGGING\n* Execution Data node\n* Custom metadata storage\n* Searchable execution history\n* Performance tracking\n\n**RELIABILITY PYRAMID:**\n```\n    Log Streaming (Enterprise)\n         ↑\n    Execution Data (All Workflows)\n         ↑\n    Execution Data (Node and Workflow)\n         ↑\n    Retry on Fail (Node)\n```",
+        "height": 812,
+        "width": 460,
+        "color": 4
+      },
+      "id": "5e1d3058-c3a6-4cb7-b600-4b10dbae4e12",
+      "name": "Reliability Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Execution Logging Strategies\n\n**1. NODE-LEVEL LOGGING:**\n**Execution Data Node**\n* Stores custom metadata\n* Key-value pairs\n* Searchable in executions\n* Max 256 chars per field\n\n**2. WORKFLOW EXECUTIONS:**\n**Access:** Executions tab in workflow\n* Shows all past runs\n* Input/output data per node\n* Execution time\n* Status (success/fail/waiting)\n\n**Filter by:**\n* Status\n* Date range\n* Custom metadata\n\n**3. ALL EXECUTIONS:**\n**Access:** [Overview → Executions](https://docs.n8n.io/workflows/executions/all-executions/)\n* Instance-wide view\n* All workflows\n* Cross-workflow analysis\n\n**4. ENTERPRISE LOG STREAMING:**\n**Destinations:**\n- Syslog server\n- Generic webhook\n- Sentry client\n\n**Configuration:** Environment variables\n```bash\nN8N_LOG_LEVEL=info\nN8N_LOG_OUTPUT=console,file\n```\n\n**REFERENCE:**\nhttps://docs.n8n.io/log-streaming/\nhttps://docs.n8n.io/workflows/executions/",
+        "height": 924,
+        "width": 500,
+        "color": 4
+      },
+      "id": "82013a01-ad43-403e-9181-1ab0abfe5b15",
+      "name": "Logging Strategies",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        208,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**PART 3: Execution Data**\n1. In the Logging node, add Data to Save with key `Message` and value of the message we're sending\n1. Execute workflow 3 times\n2. Go to Executions tab\n3. Click each execution\n4. Review custom metadata\n5. Compare execution times\n\n**SUCCESS CRITERIA:**\n✓ Custom logging captures data\n✓ Execution history viewable",
+        "height": 348,
+        "width": 520,
+        "color": 3
+      },
+      "id": "416bee75-083f-4ba8-802a-1755c4e358bf",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        704,
+        304
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        112
+      ],
+      "id": "9ba2af56-d77e-4357-b916-a9d6578be524",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "connections": {
+    "Call External API (with Retry)": {
+      "main": [
+        [
+          {
+            "node": "Log Successful Execution",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Log Successful Execution": {
+      "main": [
+        []
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Call External API (with Retry)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}
