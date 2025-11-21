@@ -1,0 +1,292 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "a947b5dd-7a55-4c11-8b26-dcec7c1233e7",
+          "mode": "list",
+          "cachedResultName": "Bitovi"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:4596d452ef9c4f519219c845a23a99d1@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "n8n-test-notifications",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A4596d452ef9c4f519219c845a23a99d1%40thread.tacv2/n8n-test-notifications?groupId=a947b5dd-7a55-4c11-8b26-dcec7c1233e7&tenantId=905034ae-f04b-41ea-949d-52fc7248f90d&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.output[0].content[0].text.replace(/\\n/g, '<br>') }}",
+        "options": {}
+      },
+      "id": "903c4525-9924-4495-8040-461d0e0663f5",
+      "name": "Send Summary to Microsoft Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        -1184
+      ],
+      "webhookId": "3da929e2-6a89-4858-9e8f-a6b98bcc4d06",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "XbRR3L42WQFi9KLs",
+          "name": "Microsoft Teams account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "78ab4647-5788-4017-9ece-69d4439ec3fb",
+      "name": "Schedule: 1st of Month, 8AM1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -48,
+        -1184
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "worksheet",
+        "operation": "readRows",
+        "workbook": {
+          "__rl": true,
+          "value": "01Q6GADRC4BYXWRW6DBRCIPRYGSB32K35Q",
+          "mode": "list",
+          "cachedResultName": "bitovi-test-sheet",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
+        },
+        "worksheet": {
+          "__rl": true,
+          "value": "{4DEF29F4-897D-4027-8D79-451F160DBA3F}",
+          "mode": "list",
+          "cachedResultName": "Sheet3",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&activeCell=Sheet3!A1"
+        },
+        "options": {}
+      },
+      "id": "57396468-e95e-4001-8a7b-79122245c9dc",
+      "name": "Fetch Last Month Transactions1",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        -1184
+      ],
+      "credentials": {
+        "microsoftExcelOAuth2Api": {
+          "id": "SMRY4PtjXydzF09W",
+          "name": "Microsoft Excel account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## AI-Powered Month-End Automation\n\n**WORKFLOW PURPOSE:**\nAutomatic generation of financial summaries with AI-powered insights\n\n**SCHEDULED EXECUTION:**\n* Runs 1st of each month at 8 AM\n* Analyzes previous month's data\n* No manual intervention required\n\n**AI CAPABILITIES:**\n* Pattern recognition in spending\n* Anomaly detection\n* Natural language summaries\n* Actionable recommendations\n\n**OUTPUTS:**\n* Executive summary\n* Statistical analysis\n* Category breakdowns\n* Team notifications",
+        "height": 520,
+        "width": 440,
+        "color": 4
+      },
+      "id": "ba0013e9-d97c-4773-9f00-d59b59b1414f",
+      "name": "Month-End Automation1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -1008
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## AI Analysis Strategies\n\n\n**PROMPT STRUCTURE:**\n* Context: Financial analyst role\n* Data: Structured statistics\n\n\n**TEMPERATURE: 0.7**\n* Balance between consistency and insight\n* Allows creative observations\n* Maintains professionalism\n\n\n**AI ADDS VALUE BY:**\n* Identifying spending patterns\n* Detecting anomalies\n* Providing context\n* Making recommendations\n* Writing clearly\n\n\n**COMPARED TO TEMPLATES:**\nTraditional: Fixed format, no insights\nAI-Powered: Adaptive analysis, contextual recommendations",
+        "height": 600,
+        "width": 420,
+        "color": 5
+      },
+      "id": "ba505217-4452-46fa-b716-21af1a4da9f0",
+      "name": "AI Analysis1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        736,
+        -896
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\nExecute the workflow. Notice that the output is too short and quite unhelpful.  Adjust the prompt to make the output more helpful.\n\nThe report should have the following sections:\n1. Executive Summary (2-3 sentences)\n2. Key Insights (3-4 bullet points)\n3. Top spending categories analysis\n4. Notable patterns or anomalies\n5. Recommendations for next month\n\n**TASK**\n* Open the Basic LLM Chain node\n* Adjust the prompt to output the required format\n* Execute the workflow\n* Confirm Teams notification\n\n**SUCCESS CRITERIA:**\n✓ Workflow executes successfully\n✓ Output has required sections\n✓ Report sends to Teams\n",
+        "height": 536,
+        "width": 500,
+        "color": 3
+      },
+      "id": "b6d1ede2-f3df-4b34-b6d1-c9d857b5d017",
+      "name": "Exercise1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        -1008
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Note to self\nin the \"send summary\" node I replace newline tags with <br> tags and use HTML format for proper formatting of the message in the messenger —include that in the explainer notes ",
+        "height": 240,
+        "width": 352,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1344,
+        -1440
+      ],
+      "typeVersion": 1,
+      "id": "652dfc77-0498-4e90-b76b-e58d93d17042",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a financial analyst. Create a comprehensive month-end summary report based on your data.\n\n<data>\n{{ $json.data.toJsonString() }}\n</data>\n\nOutput a single sentence.",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        816,
+        -1184
+      ],
+      "id": "c07e6683-28d8-4d90-8ba7-6a56e72e597a",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        816,
+        -1024
+      ],
+      "id": "62a4e57a-c54b-4f1e-bd7f-c95121521331",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "pJCSJ9Eccy2mdehk",
+          "name": "OpenAi account 13"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## New Concepts \n\n## Prompting\nThe practice of giving clear instructions or examples to an AI so it knows what you want it to do, whether that’s answering a question, generating content, analyzing data, or performing a task.\n\nA prompt is plain text generally written using natural language.\n\n## Temperature\nA setting in AI systems that controls how creative or predictable the model’s responses are.\n- **Lower temperature (e.g., 0–0.3)**: more consistent, factual, and deterministic\n- **Higher temperature (e.g., 0.7–1.0)**: more creative, varied, and exploratory\n\n\n\n## Context\nAll the information the model uses to understand and generate a response,  including your current prompt, previous messages, examples, and any additional data you provide.\n\nThe **context window** is the maximum amount of information an AI model can hold in mind at once.\n- It’s measured in **tokens** (words + pieces of words).\n- If you exceed the context window, older information gets forgotten or compressed.\n- Larger context windows allow the model to reason over longer documents, conversations, or datasets.\n\nIn short: **context** is what the model sees; the context window is how much it can see at one time.",
+        "height": 632,
+        "width": 848,
+        "color": 5
+      },
+      "id": "aed717ba-c453-4636-aa9b-2ff2c0b910ae",
+      "name": "Data Processing3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1136,
+        -1040
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -1184
+      ],
+      "id": "77b81567-f5d3-45fd-94ea-04112bdbd072",
+      "name": "Aggregate"
+    }
+  ],
+  "connections": {
+    "Schedule: 1st of Month, 8AM1": {
+      "main": [
+        [
+          {
+            "node": "Fetch Last Month Transactions1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Last Month Transactions1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Send Summary to Microsoft Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

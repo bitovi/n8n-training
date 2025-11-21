@@ -1,0 +1,371 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Exercise: Structured Output\n\n**TASK:**\n* Open the **LLM Chain** node.\n* Enable **Structured Output Parser**.\n* In **Structured Output Schema**, add an **object** with a key: `category` and a value of any string you like (e.g. `foo`).\n* **Run** the workflow.\n\n\nDit it pass?  Why or why not?  How to fix?\n\n---\n\n**SUCCESS CRITERIA:**\n✓ Workflow runs successfully.\n✓ LLM output is **valid JSON**.\n✓ JSON contains a `\"category\"` key.",
+        "height": 428,
+        "width": 500,
+        "color": 3
+      },
+      "id": "9f6e2bbc-1c80-4991-bf87-2a3d84e11cb6",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Structured Output Parser\n\nA structured output parser tells the LLM to follow a specific response format.  \nIt narrows the model’s options so the output becomes predictable and consistent.  \nThis helps downstream nodes use the data without cleanup or guesswork.\n\n\n### JSON Example\n\n```json\n{\n  \"summary\": \"Short description of what happened\",\n  \"category\": \"Finance\",\n  \"confidence\": 0.92\n}\n```\n\n### JSON Schema example\n\nJSON Schema is a more verbose way to describe your desired output structure to an LLM model. This higher verbosity is both good and bad:\nGood: More control\nBad: More to learn\n\n..it's basically way to use JSON to describe JSON :upside_down:\n\nHere's an example JSON schema that corresponds to the object above:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"summary\": { \"type\": \"string\" },\n    \"category\": { \"type\": \"string\" },\n    \"confidence\": { \"type\": \"number\" }\n  },\n  \"required\": [\"summary\", \"category\"]\n}\n```",
+        "height": 780,
+        "width": 572,
+        "color": 5
+      },
+      "id": "8d77a171-40f8-40e7-9001-91c7358d4d1e",
+      "name": "AI Prompt Engineering1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        848,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "worksheet",
+        "operation": "append",
+        "workbook": {
+          "__rl": true,
+          "value": "01Q6GADRC4BYXWRW6DBRCIPRYGSB32K35Q",
+          "mode": "list",
+          "cachedResultName": "bitovi-test-sheet",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
+        },
+        "worksheet": {
+          "__rl": true,
+          "value": "{5107A4B5-ED1A-4535-A003-1B98DB0FB251}",
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&activeCell=Sheet2!A1"
+        },
+        "dataMode": "autoMap",
+        "options": {}
+      },
+      "id": "ff27e375-65f5-4148-b79e-5f560bd92795",
+      "name": "Log to expense tracker",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.1,
+      "position": [
+        2032,
+        -144
+      ],
+      "credentials": {
+        "microsoftExcelOAuth2Api": {
+          "id": "SMRY4PtjXydzF09W",
+          "name": "Microsoft Excel account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        288,
+        0
+      ],
+      "id": "9bc22c36-895a-4ce7-a2c5-88553fa8a657",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        -304
+      ],
+      "id": "9df3a9d4-0f36-4fea-a2d5-e26301d1d605",
+      "name": "When clicking ‘Execute workflow’",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Categorize between \"IT\" or \"Product\"\n\n<data>\n{{ $json.toJsonString() }}\n</data>",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        912,
+        -144
+      ],
+      "id": "4447f26c-895b-4fb6-bb4c-aa6ea4186818",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        912,
+        16
+      ],
+      "id": "de51f5d2-a126-4f19-950e-7da1bede87f4",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "pJCSJ9Eccy2mdehk",
+          "name": "OpenAi account 13"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "49e4c307-a9cd-4184-9b40-30c261d13edb",
+              "name": "price",
+              "value": "={{ $json.transaction.price }}",
+              "type": "number"
+            },
+            {
+              "id": "0ef51c9b-c859-4576-a066-1c69ec29ba91",
+              "name": "tax",
+              "value": "={{ $json.transaction.tax }}",
+              "type": "number"
+            },
+            {
+              "id": "b6f809c3-3468-4f65-82c0-be84a6288c16",
+              "name": "vendor",
+              "value": "={{ $json.transaction.vendor }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        560,
+        0
+      ],
+      "id": "16630e58-6277-4ed7-8e65-de7f72e12df7",
+      "name": "extract transaction data"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b41749d6-4a24-4b2f-ab01-abc9d45c4cfe",
+              "name": "category",
+              "value": "={{ $json.output.category }}",
+              "type": "string"
+            },
+            {
+              "id": "daa76d08-2bdd-4e6e-baeb-0ae8d56a9837",
+              "name": "price",
+              "value": "={{ $('extract transaction data').item.json.price }}",
+              "type": "number"
+            },
+            {
+              "id": "08c6cdb9-be25-4114-804b-baeeaecaa95e",
+              "name": "tax",
+              "value": "={{ $('extract transaction data').item.json.tax }}",
+              "type": "number"
+            },
+            {
+              "id": "8d03fa33-0ab3-4e9d-b32d-27c3f63569be",
+              "name": "vendor",
+              "value": "={{ $('extract transaction data').item.json.vendor }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1840,
+        -144
+      ],
+      "id": "4b591ed5-480f-490b-9a37-464d156e6b6a",
+      "name": "build output object"
+    },
+    {
+      "parameters": {
+        "content": "## AI-Powered Transaction Classification\n\n**WORKFLOW PURPOSE:**\nAutomatically classify incoming transactions as **IT** or **Product** using an AI function trigger.\n\n**PROCESS FLOW:**\n1. Receive transaction data from the Function trigger  \n2. Send key fields (price, tax, vendor) to an AI model  \n3. Parse the structured AI response  \n4. Store the transaction in an Excel sheet.\n\n**AI CAPABILITIES:**\n* Natural language interpretation of transaction descriptions  \n* Pattern recognition across vendors and spend types  \n* Structured output for easy routing  \n* Binary category classification (IT vs Product)  \n\n**BUSINESS VALUE:**\n* Faster transaction categorization  \n* Consistent, repeatable classification logic  \n* Reduced manual review  \n* Clear routing for downstream workflows ",
+        "height": 620,
+        "width": 440,
+        "color": 4
+      },
+      "id": "664136a0-0d73-424f-b10f-40770ffb3272",
+      "name": "AI Workflow Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        112,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b453aad4-8973-4931-bbad-5d7b526ded6d",
+              "leftValue": "={{ $json.output.category }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1424,
+        -144
+      ],
+      "id": "0048829e-a4af-414d-a300-011dd0044ab6",
+      "name": "If category exists"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1840,
+        64
+      ],
+      "id": "daeee994-1dc7-4729-8e2a-da98027d4414",
+      "name": "Error no category"
+    }
+  ],
+  "connections": {
+    "Log to expense tracker": {
+      "main": [
+        []
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "extract transaction data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "If category exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extract transaction data": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "build output object": {
+      "main": [
+        [
+          {
+            "node": "Log to expense tracker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If category exists": {
+      "main": [
+        [
+          {
+            "node": "build output object",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error no category",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "transaction": {
+          "price": 100,
+          "currency": "USD",
+          "tax": 0.1,
+          "vendor": "AWS"
+        }
+      }
+    ]
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

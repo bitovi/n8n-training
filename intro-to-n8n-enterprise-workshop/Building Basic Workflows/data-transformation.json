@@ -1,0 +1,183 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "9b015675-c415-4860-850b-0336ac2db01e",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        480,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "transactions",
+              "value": "={{ [\n  {\"amount\": 1200, \"type\": \"credit\", \"fee\": 12},\n  {\"amount\": 800, \"type\": \"debit\", \"fee\": 8},\n  {\"amount\": 2500, \"type\": \"credit\", \"fee\": 25},\n  {\"amount\": 450, \"type\": \"debit\", \"fee\": 4.5}\n] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "667e4b61-3f51-489f-a4c9-8ce8615d1a5d",
+      "name": "Create Sample Transactions",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        704,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Data Transformation Nodes in n8n\n\nData Transformation Nodes are essential for manipulating and reshaping data between steps in your n8n workflow. They take lists of items from one node and apply operations to transform them for use by the next node.\n\n### The Summarize Node: Aggregation\n\nThe Summarize Node is the primary tool for performing aggregation. It takes a list of input items and reduces them down to a single output item that represents the result of a chosen operation on a specific field.\n\nTo select the operation, you set the **Mode** under the **Aggregation** field. \n\n| Mode | What it Does |\n| :--- | :--- |\n| Sum ->| Calculates the total value of a field. |\n| Average       -> | Calculates the mean (average) value of a field. |\n| Count ->| Calculates the total number of items. |\n| Max ->| Finds the highest (largest) value of a field. |\n| Min ->| Finds the lowest (smallest) value of a field. |\n\n---\n\n### Locating Data Transformation Nodes\n\nYou can easily find and add Data Transformation nodes to your workflow:\n\n1.  Click the plus button (+) on the right side of the canvas where you want to insert a new node.\n2.  In the node selection panel that opens on the side, scroll down and click on the \"Data Transformation\" submenu option. \n3.  Select the node you need, such as Summarize, Filter, or Split In Batches.",
+        "height": 596,
+        "width": 864,
+        "color": 4
+      },
+      "id": "7b20fdf9-16dd-468b-a1a4-b73478c75489",
+      "name": "Concept",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        480,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Check Your Understanding\nJSON <-- what's this?",
+        "height": 96,
+        "width": 336,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        64,
+        480
+      ],
+      "id": "7407608b-e6d8-4cd3-992b-7cdfbce953e0",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transactions",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        864,
+        272
+      ],
+      "id": "18de08be-e060-4f3c-a5b5-3468a2a5572b",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "amount"
+            }
+          ]
+        },
+        "options": {
+          "outputFormat": "singleItem"
+        }
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        272
+      ],
+      "id": "62e924c4-492d-4d54-98ed-5eafd728a6b2",
+      "name": "total amount"
+    },
+    {
+      "parameters": {
+        "content": "## Exercise 2 - avg & group by type\n\n**TASK:**\n1. Modify the workflow to output the average amount, grouped by type\n\n**SUCCESS CRITERIA:**\n✓ Workflow executes successfully\n✓ Output is average amounts grouped by type\n✓ Bonus - node is properly named",
+        "height": 272,
+        "width": 380,
+        "color": 3
+      },
+      "id": "6529f2e2-5453-4412-89b7-687c694d7d6b",
+      "name": "Exercise1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1632,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise 1 - total to average\n\n**TASK:**\n1. Modify the workflow to output the average amount (instead of the total)\n\n**SUCCESS CRITERIA:**\n✓ Workflow executes successfully\n✓ Output is average amount\n✓ Bonus - node is properly named",
+        "height": 240,
+        "width": 380,
+        "color": 3
+      },
+      "id": "535c1560-07be-4832-aeb9-022dc1dc8601",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1632,
+        208
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create Sample Transactions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Sample Transactions": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "total amount",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "total amount": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

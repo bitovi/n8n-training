@@ -1,0 +1,433 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\n- Modify the `Add to Price` Set Node so that it calculates the tax on the price (assume 7% tax rate)\n- Connect the Get Price node to the Add to Price node\n- (Optional) Add an additional Set Node which transforms the type of the Price to a `String` and add a `$` before it (ex. `100` becomes `$100`.\n\n**SUCCESS**\n✓ A price of `100` becomes `107`\n✓ (Optional) `107` becomes `$107`",
+        "height": 352,
+        "width": 352,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1792,
+        -800
+      ],
+      "typeVersion": 1,
+      "id": "3320108d-b2f3-40d1-817d-f77f142e37cf",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Node Connection Line\n\n**WHAT IT DOES:**\n* Passes data from one node to the next\n* Defines the execution order of the workflow\n* Ensures each step receives input from the previous one\n* One node can be connected to multiple nodes\n\n**HOW TO USE:**\n1. Click and drag from the small circle on one node to another\n2. Release to create a connection\n3. Data output from the first node becomes input for the next\n\nEach data field has a specific data type which can be transformed as you move through the workflow.\n\n**USE CASES:**\n* Passing data from one node to another\n* Transforming data and data types\n",
+        "height": 512,
+        "width": 380,
+        "color": 4
+      },
+      "id": "d6e9d805-204d-4d4d-9321-ae10a7d0ecb0",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        976,
+        -800
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Example\n\n**FIELDS:**\n- price: Number\n\n**EXPRESSIONS:**\n`{{ $json.Price + 10  }}`\n\n**What's it doing:**\nAdds `10` to the price in the second node, transforming the data as it moves through the workflow.\n\nNotice how it works dynamically depending on the data passed to it from the previous node.",
+        "height": 336,
+        "width": 380,
+        "color": 4
+      },
+      "id": "6d6779cd-3a22-42de-914c-82011fa7e143",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        -800
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "Price",
+              "value": 100,
+              "type": "number"
+            },
+            {
+              "id": "field2",
+              "name": "timestamp",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "field3",
+              "name": "execution_id",
+              "value": "={{ $execution.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d42c2cd0-460e-4162-b0b0-d78907d53b7d",
+      "name": "Get Price",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        1024,
+        -976
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "16fb5945-bb0a-4747-9075-1e604417b6f6",
+              "name": "Price",
+              "value": "={{ $json.Price + 10  }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d08afc11-5905-4df8-b121-97921e3f5e6c",
+      "name": "Add to Price",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        1520,
+        -976
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Lists of items (n8n-iterables)\n\n**WHAT IT DOES:**\n| In n8n,\n| all data passed between nodes\n| is an array of objects.\n| [n8n docs](https://docs.n8n.io/data/data-structure/)\n\n* n8n passes data **in the form of a list of objects** from one node to the next\n* Each node handles the list of items (not just one)\n\n**HOW TO USE:**\nNo change. n8n does this for you automatically!\n\n**USE CASES:**\n* Handling many items seamlessly",
+        "height": 384,
+        "width": 380,
+        "color": 5
+      },
+      "id": "bb93cf68-a0dd-4429-a491-338614bcb4f7",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        608,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise – Run nodes step-by-step\n(workflow flow awareness)\n\n**TASK:**\n- Run the first node and check its output.\n- Connect the next node and run it.\n- Review the output and notice how the output changed.\n- Continue with the rest of the nodes nodes: run it and confirm the output.\n\n**SUCCESS:**\n✓ Each node runs without errors  \n✓ Output updates correctly at every step  \n✓ You can clearly trace how data changes from node to node  \n",
+        "height": 336,
+        "width": 492,
+        "color": 3
+      },
+      "id": "1afd59f9-9e63-4d99-91a3-34f41be4a7e2",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "prices",
+              "value": "[\"100\", \"200\", \"300\", \"5\"]",
+              "type": "array"
+            },
+            {
+              "id": "field2",
+              "name": "comment",
+              "value": "The trend is your friend 'til the bend at the end",
+              "type": "string"
+            },
+            {
+              "id": "9d8f86ce-a465-487a-8280-0ed388880351",
+              "name": "currency",
+              "value": "$",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8d758a76-064d-49fc-8aed-41555abffbf3",
+      "name": "Get Prices",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        1024,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "prices",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1392,
+        32
+      ],
+      "id": "60945f73-b770-497b-829b-ea9178f6f4d4",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "16fb5945-bb0a-4747-9075-1e604417b6f6",
+              "name": "fee_dollars",
+              "value": "=10",
+              "type": "number"
+            },
+            {
+              "id": "38d70136-72dc-4304-9d1e-4a645d2d1944",
+              "name": "total_cost",
+              "value": "={{ parseInt($json.prices) + 10 }}",
+              "type": "number"
+            },
+            {
+              "id": "d323c3b6-bb60-4272-aad5-9e629d3ae52a",
+              "name": "currency",
+              "value": "={{ $('Get Prices').item.json.currency }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "782fcda0-4dc8-4877-aa20-d5287408a9a8",
+      "name": "Add processing fee",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        1648,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "901b4dea-4d2d-4410-a9b3-574f0a8c52d4",
+              "name": "last_price",
+              "value": "={{ $('Add processing fee').last().json.total_cost }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2192,
+        32
+      ],
+      "id": "acab81d8-8464-433f-b909-89e3fd8a3881",
+      "name": "Get final price"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        736,
+        32
+      ],
+      "id": "4d6b99f1-f9a4-47d5-9bd1-0109dde66910",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "total_cost"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1952,
+        32
+      ],
+      "id": "b036860c-6c3e-4407-9e07-f56c239aa87e",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1952,
+        240
+      ],
+      "id": "3fe55b7b-be47-4670-9fb1-ef6dd160947c",
+      "name": "Aggregate",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5622111c-1a8d-411c-8651-0eafd44c05fd",
+              "leftValue": "={{ $json.last_price }}",
+              "rightValue": 100,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2400,
+        32
+      ],
+      "id": "e99cfcb3-8be1-444b-9944-284eabd86d8e",
+      "name": "If trend is friend"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "54511900-bde3-4f00-92b0-29837aeaf9f0",
+              "name": "message",
+              "value": "trend is friend",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2816,
+        -112
+      ],
+      "id": "754ce2d1-d862-4bbc-b904-2038cc607b7a",
+      "name": "trend is friend"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1e047a51-0e6e-4b1b-aafe-bd1b51e01d19",
+              "name": "message",
+              "value": "bend at end",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2832,
+        160
+      ],
+      "id": "7638ebca-c314-421d-b42d-9d5822b464fb",
+      "name": "bend at end"
+    }
+  ],
+  "connections": {
+    "Get Price": {
+      "main": [
+        []
+      ]
+    },
+    "Get Prices": {
+      "main": [
+        []
+      ]
+    },
+    "Split Out": {
+      "main": [
+        []
+      ]
+    },
+    "Add processing fee": {
+      "main": [
+        []
+      ]
+    },
+    "Get final price": {
+      "main": [
+        []
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get Prices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        []
+      ]
+    },
+    "If trend is friend": {
+      "main": [
+        [],
+        []
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

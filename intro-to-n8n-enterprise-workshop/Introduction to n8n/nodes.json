@@ -1,0 +1,215 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Set Node\n\n**WHAT IT DOES:**\n* Creates or modifies data within the workflow\n* Lets you define static values or map data from previous nodes\n* Useful for shaping the data before sending it onward\n\n**HOW TO USE:**\n1. Add fields and assign values (static or from expressions)\n2. Enable only the fields you want to include\n3. Connect it after another node to transform that node’s output\n4. Right click and select \"Execute Step\" to run\n\n**USE CASES:**\n* Cleaning or restructuring incoming data\n* Creating new variables for later steps\n* Preparing payloads for API requests or logic checks",
+        "height": 496,
+        "width": 380,
+        "color": 4
+      },
+      "id": "ee991891-d33d-442b-8c8a-44de5e712047",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -720
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\n- Modify the Set node to add your name in a \"user_name\" field\n- Check the result in the Set Basic Data node output\n\n**SUCCESS:**\n✓ Workflow executes without errors\n✓ All fields appear in output\n✓ Timestamp is current",
+        "height": 336,
+        "width": 352,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1120,
+        -720
+      ],
+      "typeVersion": 1,
+      "id": "b6fd644d-adcd-4d02-ab9a-151675a81fd1",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Example\n\n**FIELDS:**\n- message: Static text\n- timestamp: Dynamic expression\n- execution_id: System variable\n\n**EXPRESSIONS:**\n`{{ $now }}` - Current time\n`{{ $execution.id }}` - Unique ID\n`{{ $json.fieldName }}` - Access data\n\n**In the example above:**\nIn the example above, there is a single value set.  The key is `message`, and the value is hard-coded.",
+        "height": 336,
+        "width": 380,
+        "color": 4
+      },
+      "id": "a2a5f292-bbfb-4534-ab2e-272ca1d69ae6",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        736,
+        -720
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "message",
+              "value": "This node is now connected to the manual trigger!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2748b1df-5a74-40ab-a764-8b6c5473c0be",
+      "name": "Set Basic Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        656,
+        -896
+      ]
+    },
+    {
+      "parameters": {
+        "content": "# Key Concepts/Terms\n- Variables\n- Mapping\n- API\n- Expressions\n- JSON\n\nExcel node example",
+        "height": 240,
+        "width": 416,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -624
+      ],
+      "id": "eb33762a-942d-4215-a7d2-9896acc496f3",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Bonus Exercise - Advanced Expressions\n\n**TASK:**\n- Modify the Set node to add a new \"eom\" field\n- Set the value to the following expression: `{{ $now.endOf('month') }}`\n- Check the result in the Set Basic Data node output\n\n**SUCCESS:**\n✓ Workflow executes without errors\n✓ All fields appear in output\n✓ Timestamp is current",
+        "height": 256,
+        "width": 576,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1584,
+        -400
+      ],
+      "typeVersion": 1,
+      "id": "551a71ca-21eb-4e35-90b6-d99ce4bb7d46",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "## Exercise - Expressions\n\n**TASK:**\n- Modify the Set node to add a new \"now\" field\n- Set the value to the following expression: `{{ $now }}`\n- Check the result in the Set Basic Data node output\n\n**SUCCESS:**\n✓ Workflow executes without errors\n✓ All fields appear in output\n✓ Timestamp is current",
+        "height": 304,
+        "width": 352,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1488,
+        -720
+      ],
+      "typeVersion": 1,
+      "id": "56347a71-9bd8-48c5-9fe4-773f05b48636",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "## Exercise - Add new node\n(data normalization)\n\n**TASK:**\n- Add a new node: Rename Keys\n- Use the input data of the previous node to rename the \"message\" key to \"output\".\n- Check the result in the new node's output\n\n**SUCCESS:**\n✓ Workflow executes without errors\n✓ All fields appear in output\n✓ Timestamp is current",
+        "height": 304,
+        "width": 352,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1872,
+        -720
+      ],
+      "typeVersion": 1,
+      "id": "db006eeb-7734-492e-96a6-b64ecec941d4",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "resource": "table",
+        "operation": "getRows",
+        "workbook": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "worksheet": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.2,
+      "position": [
+        144,
+        -528
+      ],
+      "id": "8a1c7a60-7d65-4920-863a-8e072abaaef0",
+      "name": "Get rows",
+      "credentials": {
+        "microsoftExcelOAuth2Api": {
+          "id": "SMRY4PtjXydzF09W",
+          "name": "Microsoft Excel account 3"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "keys": {
+          "key": [
+            {
+              "currentKey": "message",
+              "newKey": "output"
+            }
+          ]
+        },
+        "additionalOptions": {}
+      },
+      "type": "n8n-nodes-base.renameKeys",
+      "typeVersion": 1,
+      "position": [
+        864,
+        -896
+      ],
+      "id": "62538762-5888-4e3c-a2e1-645ca8ce7bf8",
+      "name": "Rename Keys"
+    }
+  ],
+  "connections": {
+    "Set Basic Data": {
+      "main": [
+        [
+          {
+            "node": "Rename Keys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

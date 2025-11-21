@@ -1,0 +1,323 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "7715cd78-a7c3-4923-a230-c2939648e04e",
+      "name": "Schedule: Daily 9AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -448,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "trigger_type",
+              "value": "scheduled",
+              "type": "string"
+            },
+            {
+              "id": "field2",
+              "name": "message",
+              "value": "Daily report generated at scheduled time",
+              "type": "string"
+            },
+            {
+              "id": "field3",
+              "name": "timestamp",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c217ddd0-c2ab-4aed-97e3-23bc82b3d884",
+      "name": "Scheduled Action",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -224,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "path": "financial-event",
+        "options": {}
+      },
+      "id": "dde1a2ea-0751-4f06-a1fb-d84625d320c5",
+      "name": "Webhook: Real-time Events",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        384
+      ],
+      "webhookId": "financial-webhook"
+    },
+    {
+      "parameters": {
+        "content": "## Scheduled Workflows\n\n**CHARACTERISTICS:**\n* Run at predetermined times/intervals\n* Independent of external events\n* Predictable execution pattern\n\n**WHEN TO USE:**\n* Daily reports and reconciliation\n* Periodic data backups\n* Regular health checks\n* End-of-day processing\n\n**SCHEDULE TRIGGER OPTIONS:**\n* Seconds, Minutes, Hours intervals\n* Days, Weeks, Months intervals\n* Custom Cron expressions\n* Timezone-aware execution\n\n**REFERENCE:**\nhttps://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger/",
+        "height": 520,
+        "width": 400,
+        "color": 4
+      },
+      "id": "c1222974-175c-4677-a6a1-8937e614cebe",
+      "name": "Scheduled Pattern",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Event-Driven Workflows\n\n**CHARACTERISTICS:**\n* Triggered by external events\n* Immediate response to actions\n* Unpredictable timing\n\n**WHEN TO USE:**\n* Executing workflows from external sources to perform tasks or process data\n\n**TRIGGER OPTIONS:**\n* Webhook: HTTP endpoints\n* App Triggers: Slack, Sheets, etc.\n* File system watchers\n* Database changes",
+        "height": 536,
+        "width": 400,
+        "color": 4
+      },
+      "id": "d64459d9-244c-4fc3-8558-92a7dc7f216a",
+      "name": "Event-Driven Pattern",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Choosing the Right Pattern\n\n**USE SCHEDULED FOR:**\n* Batch data processing\n* Periodic reports\n\n**USE EVENT-DRIVEN FOR:**\n* Real-time requirements\n* User interactions\n* External system integrations\n* Immediate notifications",
+        "height": 280,
+        "width": 420,
+        "color": 4
+      },
+      "id": "b128f093-1680-4bba-bff4-1be5745e5fa9",
+      "name": "Pattern Comparison",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        448,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK: Invent a new tax calculation service!**\n\nIf you run the webhook workflow, you'll notice it fails.  Determine why it failed, and fix it.\n\nThe failed node is supposed to calculate the tax.  Let's assume 10% tax.\n\n1. Execute the workflow. It'll fail.\n2. Open the failed node and read the error message\n3. Fix the error such that it outputs a value that represents cost + tax\n\n\n**SUCCESS CRITERIA:**\n✓ Workflow executes successfully\n✓ Tax is calculated correctly",
+        "height": 440,
+        "width": 420,
+        "color": 3
+      },
+      "id": "f28d3970-ed60-4da4-9875-08262ba989e0",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        928,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "16cfb1de-cceb-4db1-82fe-cf87c18a1897",
+              "name": "total_with_tax",
+              "value": "=fixme",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -192,
+        384
+      ],
+      "id": "9d7c3773-1ad5-4dbb-9b83-bacf7677ee7b",
+      "name": "calculate tax"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "trigger_type",
+              "value": "event-driven",
+              "type": "string"
+            },
+            {
+              "id": "field2",
+              "name": "message",
+              "value": "Immediate response to incoming event",
+              "type": "string"
+            },
+            {
+              "id": "field3",
+              "name": "event_data",
+              "value": "={{ $json }}",
+              "type": "object"
+            },
+            {
+              "id": "325919c0-211d-4496-95d4-4e12dab4d2c9",
+              "name": "tax",
+              "value": 0.1,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f00fa2d5-36e3-4ab2-9040-c3ed0fdafd0c",
+      "name": "Capture data and type cast to object",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -496,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "38320995-11f9-4b97-9dc7-c5f7ef642631",
+              "name": "cost",
+              "value": "={{ $json.event_data.body.cost }}",
+              "type": "number"
+            },
+            {
+              "id": "5b54de08-21a5-470e-be33-69a78436eb53",
+              "name": "tax",
+              "value": "={{ $json.tax }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -336,
+        384
+      ],
+      "id": "deb3b694-a7b4-4589-b524-4d74849955db",
+      "name": "extract transaction details"
+    },
+    {
+      "parameters": {
+        "content": "# Pinned data :eyes:",
+        "height": 80,
+        "width": 288,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -736,
+        576
+      ],
+      "typeVersion": 1,
+      "id": "ad1355d8-e700-4084-a545-127c6b54a791",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {
+    "Schedule: Daily 9AM": {
+      "main": [
+        [
+          {
+            "node": "Scheduled Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Real-time Events": {
+      "main": [
+        [
+          {
+            "node": "Capture data and type cast to object",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture data and type cast to object": {
+      "main": [
+        [
+          {
+            "node": "extract transaction details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extract transaction details": {
+      "main": [
+        [
+          {
+            "node": "calculate tax",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Webhook: Real-time Events": [
+      {
+        "headers": {
+          "host": "shared-n8n.bitovi-ai.com",
+          "x-request-id": "62e657c94724973db9cca94087185d0b",
+          "x-real-ip": "10.0.1.201",
+          "x-forwarded-for": "10.0.1.201",
+          "x-forwarded-host": "shared-n8n.bitovi-ai.com",
+          "x-forwarded-port": "443",
+          "x-forwarded-proto": "https",
+          "x-forwarded-scheme": "https",
+          "x-scheme": "https",
+          "user-agent": "curl/8.7.1",
+          "accept": "*/*"
+        },
+        "params": {},
+        "query": {},
+        "body": {
+          "type": "purchase",
+          "cost": 100
+        },
+        "webhookUrl": "https://shared-n8n.bitovi-ai.com/webhook-test/financial-event",
+        "executionMode": "test"
+      }
+    ]
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}
