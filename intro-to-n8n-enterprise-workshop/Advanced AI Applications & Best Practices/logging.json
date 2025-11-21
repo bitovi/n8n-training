@@ -1,0 +1,308 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## EXECUTION LOGGING\n* Execution Data node\n* Custom metadata storage\n* Searchable execution history\n* Performance tracking\n\n**RELIABILITY PYRAMID:**\n```\n    Log Streaming (Enterprise)\n         ↑\n    Execution Data (All Workflows)\n         ↑\n    Execution Data (Node and Workflow)\n         ↑\n    Retry on Fail (Node)\n```",
+        "height": 812,
+        "width": 460,
+        "color": 4
+      },
+      "id": "5e1d3058-c3a6-4cb7-b600-4b10dbae4e12",
+      "name": "Reliability Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "content": "# Execution Logging Strategies",
+        "height": 80,
+        "width": 532,
+        "color": 4
+      },
+      "id": "82013a01-ad43-403e-9181-1ab0abfe5b15",
+      "name": "Logging Strategies",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        208,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**PART 3: Execution Data**\n1. In the Logging node, add a new key under Data to Save called `vendor`, and set the value appropriately\n1. Execute workflow 3 times\n2. Go to Executions tab\n3. Click each execution\n4. Review custom metadata\n5. Compare execution times\n\n**SUCCESS CRITERIA:**\n✓ Custom logging captures data\n✓ Execution history viewable",
+        "height": 348,
+        "width": 520,
+        "color": 3
+      },
+      "id": "416bee75-083f-4ba8-802a-1755c4e358bf",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        768,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "transaction",
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -96,
+        112
+      ],
+      "id": "8ed65d79-410b-4a50-8443-4dd21df00f0c",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "dataToSave": {
+          "values": [
+            {
+              "key": "transaction_data",
+              "value": "={{ $json.toJsonString() }}"
+            }
+          ]
+        }
+      },
+      "id": "3fa401ca-d849-4a46-bc1f-543e9d6d77db",
+      "name": "Log transaction success",
+      "type": "n8n-nodes-base.executionData",
+      "typeVersion": 1,
+      "position": [
+        704,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "worksheet",
+        "operation": "append",
+        "workbook": {
+          "__rl": true,
+          "value": "01Q6GADRC4BYXWRW6DBRCIPRYGSB32K35Q",
+          "mode": "list",
+          "cachedResultName": "bitovi-test-sheet",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
+        },
+        "worksheet": {
+          "__rl": true,
+          "value": "{5107A4B5-ED1A-4535-A003-1B98DB0FB251}",
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&activeCell=Sheet2!A1"
+        },
+        "fieldsUi": {
+          "values": [
+            {
+              "column": "vendor",
+              "fieldValue": "={{ $json.vendor }}"
+            },
+            {
+              "column": "amount",
+              "fieldValue": "={{ $json.price + $json.tax }}"
+            },
+            {
+              "column": "currency",
+              "fieldValue": "USD"
+            },
+            {
+              "column": "date",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7bf58591-6087-4288-8f71-8944caddf1a8",
+      "name": "Log to expense tracker",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        112
+      ],
+      "credentials": {
+        "microsoftExcelOAuth2Api": {
+          "id": "SMRY4PtjXydzF09W",
+          "name": "Microsoft Excel account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "49e4c307-a9cd-4184-9b40-30c261d13edb",
+              "name": "price",
+              "value": "={{ $json.transaction.price }}",
+              "type": "number"
+            },
+            {
+              "id": "0ef51c9b-c859-4576-a066-1c69ec29ba91",
+              "name": "tax",
+              "value": "={{ $json.transaction.tax }}",
+              "type": "number"
+            },
+            {
+              "id": "b6f809c3-3468-4f65-82c0-be84a6288c16",
+              "name": "vendor",
+              "value": "={{ $json.transaction.vendor }}",
+              "type": "string"
+            },
+            {
+              "id": "26cdd1df-84fa-4ed1-a5e1-0eab64c09679",
+              "name": "source",
+              "value": "logging_workflow",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        112
+      ],
+      "id": "364f6540-39e5-47af-8360-e34406e1fd5f",
+      "name": "extract transaction data"
+    },
+    {
+      "parameters": {
+        "content": "## 3. ALL EXECUTIONS:\n**Access:** [Overview → Executions](https://docs.n8n.io/workflows/executions/all-executions/)\n* Instance-wide view\n* All workflows\n* Cross-workflow analysis",
+        "height": 156,
+        "width": 500,
+        "color": 4
+      },
+      "id": "d9bef425-52e5-4541-b529-f3c22fea357e",
+      "name": "Logging Strategies1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        928
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 1. NODE-LEVEL LOGGING:\n**Execution Data Node**\n* Stores custom metadata\n* Key-value pairs\n* Searchable in executions\n* Max 256 chars per field\n",
+        "height": 188,
+        "width": 500,
+        "color": 4
+      },
+      "id": "9d4acb13-329d-4477-8b6b-04eab62b9044",
+      "name": "Logging Strategies2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 2. WORKFLOW EXECUTIONS:\n**Access:** Executions tab in workflow\n* Shows all past runs\n* Input/output data per node\n* Execution time\n* Status (success/fail/waiting)\n\n**Filter by:**\n* Status\n* Date range\n* Custom metadata\n",
+        "height": 284,
+        "width": 500,
+        "color": 4
+      },
+      "id": "d7aff179-b0e8-43f1-a749-06995e1c6eed",
+      "name": "Logging Strategies3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 4. ENTERPRISE LOG STREAMING (for admins):\n**Destinations:**\n- Syslog server\n- Generic webhook\n- Sentry client\n\n**Configuration:** Environment variables\n```bash\nN8N_LOG_LEVEL=info\nN8N_LOG_OUTPUT=console,file\n```\n\n**REFERENCE:**\nhttps://docs.n8n.io/log-streaming/\nhttps://docs.n8n.io/workflows/executions/",
+        "height": 364,
+        "width": 500,
+        "color": 5
+      },
+      "id": "5685e47b-c215-4441-96b9-e3b3d87f93c7",
+      "name": "Logging Strategies4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        1168
+      ]
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "extract transaction data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log transaction success": {
+      "main": [
+        []
+      ]
+    },
+    "Log to expense tracker": {
+      "main": [
+        [
+          {
+            "node": "Log transaction success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extract transaction data": {
+      "main": [
+        [
+          {
+            "node": "Log to expense tracker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "transaction": {
+          "price": 100,
+          "currency": "USD",
+          "tax": 0.1,
+          "vendor": "AWS"
+        }
+      }
+    ]
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

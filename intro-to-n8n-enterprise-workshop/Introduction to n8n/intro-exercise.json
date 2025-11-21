@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## 👋 Welcome to the n8n Training!\n\nAdd a new sticky note to the canvas to introduce yourself.\n\n**Please include:**\n- Your name  \n- Your location  \n- Your role or team  \n- One thing you hope to learn today\n\nWhen you're done, place your sticky anywhere on the board.  \n\n### 📝 How to Create a Sticky Note\n\n1. Click the **+ (Add)** button on the canvas  \n2. Use the search bar to type **“sticky”**  \n3. Select **Sticky Note** from the results  \n4. Type your text directly into the sticky  \n5. Drag to move it or pull the corners to resize  \n6. Click outside the note when you’re done\n\nNow go ahead and create your introduction sticky!",
+        "height": 528,
+        "width": 688
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        -240
+      ],
+      "id": "5b957ce9-b3a5-41bb-845d-b2bb1b932ef5",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {},
+  "pinData": {},
+  "meta": {
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

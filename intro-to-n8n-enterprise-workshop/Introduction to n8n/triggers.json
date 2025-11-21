@@ -1,0 +1,215 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field2",
+              "name": "execution_type",
+              "value": "Scheduled execution",
+              "type": "string"
+            },
+            {
+              "id": "field1",
+              "name": "scheduled_execution_time",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "field3",
+              "name": "day_of_week",
+              "value": "={{ $now.format('EEEE') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "edd11a8e-c84a-4269-8dfb-c73dcae5aba3",
+      "name": "Set Schedule Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        960,
+        -528
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Schedule Trigger\n\n**WHAT IT DOES:**\n- Runs workflow automatically\n- Executes workflow at a specified time\n\n**CONFIGURATION:**\n- Currently: Every 5 minutes\n- Node is disabled until activated\n\n**HOW TO USE:**\n1. Enable this node (select all nodes in the workflow and press D)\n2. SAVE workflow (Ctrl+S)\n3. ACTIVATE workflow (toggle at top)\n4. Wait 1 minute\n5. Check Executions tab\n\n**IMPORTANT:**\n- Must SAVE before activating\n- Must ACTIVATE for schedule to work\n- Check your [timezone settings](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger)\n\n**USE CASES:**\n- Scheduled hourly market data collection\n- Daily EOD report generation\n- Sending automated reminders for missing invoices.",
+        "height": 620,
+        "width": 400,
+        "color": 4
+      },
+      "id": "e902101b-0ce2-4ffe-90d5-c0c401fcded0",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -928
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\n- Change schedule to: daily at _2 minutes from your current time_ (e.g. set to 10:02 am if currently it's 10:00 am)\n- Enable nodes\n- Save the workflow\n- Activate the workflow\n- Check the result in the Set Schedule Data node output in 5 minutes\n\n**SUCCESS:**\n✓ Workflow executes without errors\n✓ All fields appear in output\n✓ Timestamp is current",
+        "height": 336,
+        "width": 512,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        656,
+        -928
+      ],
+      "typeVersion": 1,
+      "id": "d5ec6878-6022-4d4d-8636-0cd44ad9cce2",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "## Manual Trigger\n\n**WHAT IT DOES:**\n- Provides manual execution button\n- You control when workflow runs\n- Perfect for testing\n\n**HOW TO USE:**\n1. Click \"Execute Workflow\" button\n2. Watch data flow through nodes\n3. Check output in each node\n\n**USE CASES:**\n- Workflows that need to be started manually at arbitrary times\n- Workflow testing",
+        "height": 388,
+        "width": 400,
+        "color": 4
+      },
+      "id": "f553486d-32ba-45d0-a8de-2764c4576aa2",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        656,
+        -1536
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "70b0e7e7-2104-4d78-b001-d68f01dda834",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        464,
+        -1696
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "message",
+              "value": "Hello from n8n!",
+              "type": "string"
+            },
+            {
+              "id": "field2",
+              "name": "timestamp",
+              "value": "={{ $now.format('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "field3",
+              "name": "execution_id",
+              "value": "={{ $execution.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9dee27d6-03b6-4207-8029-12faf10637fa",
+      "name": "Set Basic Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        768,
+        -1696
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\n- Execute the workflow using the manual trigger\n- Validate the `Set Basic Data` node was run and observe it's output.\n\n**SUCCESS:**\n✓ Workflow executes without errors\n✓ All fields appear in output\n✓ Timestamp is current",
+        "height": 336,
+        "width": 512,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1072,
+        -1536
+      ],
+      "typeVersion": 1,
+      "id": "08de7a17-ace3-4f9f-8ede-ae15d5f56bcd",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "What are some common errors that might occur with something like this?",
+        "height": 80,
+        "width": 352,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        736,
+        -320
+      ],
+      "id": "b1668e7f-e9a4-4eb1-b2ce-744059489932",
+      "name": "Sticky Note18"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "3baf8ce0-ab9b-44ce-9231-de2fc5b7a218",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        736,
+        -528
+      ],
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Basic Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Schedule Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

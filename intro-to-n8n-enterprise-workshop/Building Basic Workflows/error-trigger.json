@@ -29,8 +29,8 @@
     },
     {
       "parameters": {
-        "content": "## Exercise\n\n**TASK**\n1. Set up Slack notifications in this workflow\n2. Go to the [example error workflow](https://shared-n8n.bitovi-ai.com/workflow/r3oMop6Q2SXsmx0Z)\n3. Make sure that the example workflow is linked to the error workflow (··· in the upper right corner -> Settings -> Error Workflow -> point to the error workflow called `Error Trigger`)\n4. Activate  the workflow\n4. Wait for 30 seconds and check if you got a Slack notification\n5. Fix the workflow to eliminate the error\n\n**SUCCESS CRITERIA:**\n✓ Friendly alerts sent appropriately\n✓ Error workflow activates on failure\n✓ Notifications include useful context",
-        "height": 540,
+        "content": "## Exercise\n\n**TASK**\n1. Connect the Teams notifications node in this workflow\n2. Activate  the workflow\n3. Visit the production url of the Handling Basics workflow, and click the button\n4. Wait for about 30 seconds and check if you got a Teams notification\n\n**SUCCESS CRITERIA:**\n✓ Friendly alerts sent appropriately\n✓ Error workflow activates on failure\n✓ Notifications include useful context",
+        "height": 332,
         "width": 440,
         "color": 3
       },

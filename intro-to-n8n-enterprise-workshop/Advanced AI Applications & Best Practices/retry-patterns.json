@@ -1,0 +1,268 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Retry Configuration\n\n**NODE SETTINGS:**\n* Location: Node → Settings tab\n* Toggle: \"Retry On Fail\" → ON\n\n**PARAMETERS:**\n* **Max Tries:** 3-5 for APIs\n* **Wait Between Tries:** \n  - APIs: 5000ms (5 sec)\n  - Rate limits: 10000ms (10 sec)\n  - Heavy operations: 30000ms (30 sec)\n\n\n**WHEN TO USE:**\n✓ External API calls\n✓ LLM Structured Output calls\n✓ Database connections\n✓ File operations\n✓ Network requests\n\n**WHEN NOT TO USE:**\n✗ User input validation\n✗ Logic errors\n✗ Authentication failures\n✗ Permanent errors (404)\n\n**REFERENCES:**\n- https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest/common-issues/\n- https://docs.n8n.io/integrations/builtin/rate-limits/",
+        "height": 668,
+        "width": 440,
+        "color": 4
+      },
+      "id": "3437f6b7-c6c9-4fbc-901a-1a5ff05e84dc",
+      "name": "Retry Patterns",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        48,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise 1 - Configure Node Retries 🛠️\n\n1. Open the **\"pull data\"** node.\n2. Go to the **Settings** tab and enable **\"Retry On Fail\"**.\n3. Set **Max Retries: 3** and **Wait Between Tries: 5000ms (5 sec)**.\n4. Open the **\"Basic LLM Chain\"** node.\n5. Go to the **Settings** tab and enable **\"Retry On Fail\"**.\n6. Set **Max Retries: 2** (as a demonstration, different from the previous node) and **Wait Between Tries: 3000ms (3 sec)**.\n\n---\n\n**SUCCESS CRITERIA:**\n✓ Both the **\"pull data\"** and **\"Basic LLM Chain\"** nodes have **Retry On Fail** enabled.\n✓ Retry settings are configured with specific values.",
+        "height": 364,
+        "width": 520,
+        "color": 3
+      },
+      "id": "52ddffc9-1023-4fdf-8d1f-6556e36b3422",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        -240
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -208
+      ],
+      "id": "071e2537-c6a9-4687-ac35-3bea9b461b29",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "# What is an API?\n\n**API (Application Programming Interface)**\n\nAn API is a simple, structured way for one system to ask another system for information or to perform an action.  \nA helpful way to think about it: **a menu of what you can request and what you’ll get back**.  \nYou don’t need to know how the other system works — just which options exist and how to call them.  \n\nAPIs make it easy for tools to share data automatically, keep systems aligned, and remove manual steps.\n",
+        "height": 304,
+        "width": 400,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        16
+      ],
+      "id": "b6f45f4a-aa89-4ece-9ccd-05e1df3709f3",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=<data>\n{{ $json.data.toJsonString() }}\n</data>",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "summarize data"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        624,
+        -208
+      ],
+      "id": "392c2802-214e-46af-921a-195150fb6570",
+      "name": "Basic LLM Chain",
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        640,
+        16
+      ],
+      "id": "ecd3c54d-4ed8-478b-a918-6c6a8f2cf3d7",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "pJCSJ9Eccy2mdehk",
+          "name": "OpenAi account 13"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "worksheet",
+        "operation": "readRows",
+        "workbook": {
+          "__rl": true,
+          "value": "01Q6GADRC4BYXWRW6DBRCIPRYGSB32K35Q",
+          "mode": "list",
+          "cachedResultName": "bitovi-test-sheet",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
+        },
+        "worksheet": {
+          "__rl": true,
+          "value": "{00000000-0001-0000-0000-000000000000}",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&activeCell=Sheet1!A1"
+        },
+        "options": {}
+      },
+      "id": "502c5099-2b90-4869-a2c0-c5088ea13395",
+      "name": "pull data",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        -224
+      ],
+      "retryOnFail": false,
+      "credentials": {
+        "microsoftExcelOAuth2Api": {
+          "id": "SMRY4PtjXydzF09W",
+          "name": "Microsoft Excel account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        400,
+        -208
+      ],
+      "id": "ef706120-5108-4b1c-876e-e9361c790990",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "content": "## Exercise 2 - Enable Auto-Fixing Output 🤖\n\n1. Open the **Structured Output Parser** node (a sub-node of the Basic LLM Chain)\n2. In the parser node settings, turn on the **\"Auto-Fix Format\"** option.\n3. Attach an LLM model sub-node.\n  - select a model that is known to be **\"good at code\"** or JSON formatting\n\n---\n\n**SUCCESS CRITERIA:**\n✓ The parser node's **\"Auto-Fix Format\"** is turned on and configured with an LLM",
+        "height": 316,
+        "width": 520,
+        "color": 3
+      },
+      "id": "af07a65d-ee38-47d0-bb03-e989687c81d3",
+      "name": "Exercise1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"response\": \"foo\",\n\t\"html_response\": \"<p>foo</p>\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        816,
+        16
+      ],
+      "id": "9cee5282-9828-455a-ac0f-33c1c2e98d05",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "content": "## Structured Output Parser (Auto-Fix)\n\n**PURPOSE:**\nThe **Structured Output Parser** ensures that the data returned by the LLM (in this case, \"Basic LLM Chain\") is always valid **JSON** that conforms to a specified schema.\n\n**KEY SETTINGS:**\n* **Schema Type:** Define the exact JSON structure (e.g., must contain the `\"summary\"` key as an object).\n* **Auto-Fix Format (ON):** If the initial LLM response is poorly formatted or invalid JSON, this option automatically sends the bad output back to a designated LLM for **correction and cleanup**. This prevents workflow failures.\n\n**PARAMETERS (For Auto-Fix):**\n* **Auto-Fix Model:** You must select a separate, capable model here\n\n**WHEN TO USE:**\n✓ When reliable, machine-readable data is mandatory for the rest of the workflow.\n\n**REFERENCE:**\n[n8n Structured Output Parser Docs](https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.outputparserstructured/)",
+        "height": 524,
+        "width": 440,
+        "color": 4
+      },
+      "id": "7aaf0e63-25f0-4a69-8a80-c3c09649d6df",
+      "name": "Retry Patterns1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        224
+      ]
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "pull data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pull data": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

@@ -48,8 +48,8 @@
     },
     {
       "parameters": {
-        "content": "## Slack Node\n\n**WHAT IT DOES:**\n* Sends messages to Slack channels or users\n* Can create channels, update messages, add reactions\n* Supports rich formatting with attachments and blocks\n* Requires Slack app with OAuth token\n\n**HOW TO USE:**\n1. Create [Slack app](https://api.slack.com/apps) in workspace\n2. Follow instructions on [this page](https://docs.n8n.io/integrations/builtin/credentials/slack/) for the next steps\n3. Add required scopes: in this example, it's `chat:write` to send private messages to users\n4. Install app to workspace\n5. Copy Bot OAuth Token to n8n credentials\n6. Select channel and compose message\n\n**AUTHENTICATION:**\n* OAuth2 or Access Token\n* Scopes determine permissions\n\n**LIMITATIONS:**\n* Token rotation must be OFF for production\n* Rate limits apply per workspace\n\n**USE CASES:**\n* Real-time transaction alerts\n* System error notifications\n* Daily report summaries\n* Team collaboration updates\n\n**REFERENCE:**\nhttps://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.slack/",
-        "height": 796,
+        "content": "## Microsoft Teams Node\n\n**WHAT IT DOES:**\n* Sends messages to Teams channels or chats\n* Creates or manages channels, messages, and tasks\n* Supports advanced operations like forms and message actions\n* Uses Microsoft OAuth2 credentials\n\n**HOW TO USE:**\n1. Add the Teams node, choose an operation, and select a channel or chat  \n2. Configure the message and test the node\n\n**LIMITATIONS:**\n* Some actions require Microsoft Graph via HTTP Request  \n* Channel access depends on permissions\n\n**USE CASES:**\n* Automated alerts and notifications  \n* Posting workflow summaries  \n* Creating messages or tasks from upstream events  \n* Integrating enterprise systems with Teams\n\n**REFERENCE:**\nhttps://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.microsoftteams/\n",
+        "height": 620,
         "width": 400,
         "color": 4
       },
@@ -59,12 +59,12 @@
       "typeVersion": 1,
       "position": [
         32,
-        16
+        32
       ]
     },
     {
       "parameters": {
-        "content": "## Example\n\n**MESSAGE FORMATTING:**\n* Use expressions to insert dynamic data\n* Format: `{{ $json.fieldName }}`\n* Supports markdown formatting\n\n**CHANNEL SELECTION:**\n* Public channels: #channel-name\n* Private channels: Use channel ID\n* Direct messages: @username or user ID",
+        "content": "## Example\n\n**MESSAGE FORMATTING:**\n* Use expressions to insert dynamic data\n* Format: `{{ $json.fieldName }}`\n* Supports markdown formatting\n\n**CHANNEL SELECTION:**\n* From list: select from dropdown\n* Channel ID: Use channel ID",
         "height": 472,
         "width": 400,
         "color": 4
@@ -80,8 +80,8 @@
     },
     {
       "parameters": {
-        "content": "## Exercise\n\n**TASK:**\n1. Create a Slack app in your workspace\n2. Add scopes: chat:write, channels:read\n3. Install app and copy Bot OAuth Token\n4. Create Slack credentials in n8n\n5. Change user ID to your user ID\n6. Modify message to include transaction status\n7. Execute and verify message appears\n\n**SUCCESS CRITERIA:**\n✓ Message posts to your chat with the bot\n✓ Dynamic values display correctly\n✓ Formatting renders properly",
-        "height": 400,
+        "content": "## Exercise\n\n**TASK:**\n1. Modify the message to include the transaction status  \n2. Execute the workflow and verify the message appears in Teams\n\n**SUCCESS CRITERIA:**\n✓ Message posts to the selected Teams channel or chat  \n✓ Dynamic values appear correctly  \n✓ Message formatting displays as intended",
+        "height": 304,
         "width": 380,
         "color": 3
       },
@@ -151,6 +151,11 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "Send Summary to Microsoft Teams": {
+      "main": [
+        []
       ]
     }
   },

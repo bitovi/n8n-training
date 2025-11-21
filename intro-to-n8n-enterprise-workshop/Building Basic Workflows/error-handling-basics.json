@@ -1,0 +1,467 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field1",
+              "name": "status",
+              "value": "success",
+              "type": "string"
+            },
+            {
+              "id": "field2",
+              "name": "message",
+              "value": "AWS cost is < $10k",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "24b4a829-adc8-4c23-b108-11f50ebc36ab",
+      "name": "Success Processing",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [
+        -320,
+        -64
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Error Handling Approaches\n\n**1. INLINE VALIDATION**\n* Use IF nodes to check data\n* Route bad data to error handling\n* Prevents errors before they occur\n\n\n**2. CONTINUE ON ERROR**\n* Node setting: Continue on Fail\n* Workflow continues despite errors (such as data request failure)\n\n\n**3. ERROR WORKFLOW**\n* Separate workflow with Error Trigger\n* Catches all workflow failures\n* Centralized error management\n\n**REFERENCE:**\nhttps://docs.n8n.io/flow-logic/error-handling/\n",
+        "height": 520,
+        "width": 420,
+        "color": 4
+      },
+      "id": "2b9634ac-718d-462a-bf77-aadd58982881",
+      "name": "Error Handling Concept",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Friendly Error Messages Pro Tips\n\n**BEST PRACTICES:**\n* Use clear, non-technical language\n* Include context: what, when, where\n* Provide actionable next steps\n* Log errors for later review\n\n**MESSAGE STRUCTURE:**\n1. Alert icon/severity indicator\n2. Brief description of issue\n3. Relevant data (IDs, values)\n4. Timestamp\n5. Action required or contact info\n\n**AVOID:**\n* Technical jargon\n* Stack traces in user messages\n* Vague descriptions\n* No actionable information",
+        "height": 472,
+        "width": 448,
+        "color": 6
+      },
+      "id": "9adc5f97-a556-4088-a93e-f6f1f2d59570",
+      "name": "Friendly Alerts",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        176,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise 1 - Workflow Assembly\n\n**TASK: Assemble the AWS Expenditure Checker**\n1. Review the available nodes in the red box in the bottom left of the canvas\n2. Attach the nodes in the correct order (starting with the \"pull data\" node) to build a workflow that:\n\n- Selects only AWS entries\n- Adds up all of the amounts\n- Prepares an object with a `sum` key to attach to the \"check low sum\" node.\n\n**SUCCESS CRITERIA:**\n✓ Workflow executes fully\n✓ Only AWS items are added to the sum\n✓ Notifications sent for high-sum entries",
+        "height": 396,
+        "width": 440,
+        "color": 3
+      },
+      "id": "8713f7c7-43c3-4d10-9239-9d1277eb96a2",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        608,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "a947b5dd-7a55-4c11-8b26-dcec7c1233e7",
+          "mode": "list",
+          "cachedResultName": "Bitovi"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:4596d452ef9c4f519219c845a23a99d1@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "n8n-test-notifications",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A4596d452ef9c4f519219c845a23a99d1%40thread.tacv2/n8n-test-notifications?groupId=a947b5dd-7a55-4c11-8b26-dcec7c1233e7&tenantId=905034ae-f04b-41ea-949d-52fc7248f90d&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "=⚠️ High Cloud Spend on AWS<br>\n\nIssue: AWS Cloud Spend exceeded $10k<br>\nCost: {{ $json.sum.format({\"style\": \"currency\", \"currency\":\"USD\"}) }}<br>\nTime: {{ $now.format('yyyy-MM-dd HH:mm:ss') }}<br>\n\nAction Required: Please check the cloud resources",
+        "options": {}
+      },
+      "id": "8c56cc44-09ed-4d94-83e1-5b2052b2b42a",
+      "name": "Send Summary to Microsoft Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        160
+      ],
+      "webhookId": "3da929e2-6a89-4858-9e8f-a6b98bcc4d06",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "XbRR3L42WQFi9KLs",
+          "name": "Microsoft Teams account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4937262f-9b80-4c7f-8724-3d4d3fbb339e",
+              "leftValue": "={{ $json.Category }}",
+              "rightValue": "Software",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -848,
+        560
+      ],
+      "id": "7b87b097-dda3-40ac-ab75-032d93ed904c",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "Amount"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        -672,
+        448
+      ],
+      "id": "5b989af4-9bdd-4a59-b28e-998427751165",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0972c606-75af-4387-b776-f68947c8f718",
+              "name": "sum",
+              "value": "={{ $json.sum_Amount }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -992,
+        416
+      ],
+      "id": "101bc881-3e03-43f1-9446-f21fe9e142f2",
+      "name": "normalize field name"
+    },
+    {
+      "parameters": {
+        "content": "# AWS Expenditure Checker",
+        "height": 80,
+        "width": 464,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        -176
+      ],
+      "id": "16e03130-6c0b-43d8-9b50-2b31012d193e",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "condition1",
+              "leftValue": "={{ $json.sum }}",
+              "rightValue": 10000,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "db7618cb-a5c9-44f9-a848-26b9efb413a0",
+      "name": "check low sum",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -512,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "worksheet",
+        "operation": "readRows",
+        "workbook": {
+          "__rl": true,
+          "value": "01Q6GADRC4BYXWRW6DBRCIPRYGSB32K35Q",
+          "mode": "list",
+          "cachedResultName": "bitovi-test-sheet",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
+        },
+        "worksheet": {
+          "__rl": true,
+          "value": "{4DEF29F4-897D-4027-8D79-451F160DBA3F}",
+          "mode": "list",
+          "cachedResultName": "Sheet3",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&activeCell=Sheet3!A1"
+        },
+        "options": {}
+      },
+      "id": "5b58255b-e7e0-4b82-9b2e-8db731a4d289",
+      "name": "pull data",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.1,
+      "position": [
+        -1152,
+        64
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftExcelOAuth2Api": {
+          "id": "SMRY4PtjXydzF09W",
+          "name": "Microsoft Excel account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Exercise components\n### (come here after you've read the exercise notes to the right)\n\nConnect these nodes such that the workflow sends an error message if the sum of AWS costs exceeds $10k",
+        "height": 444,
+        "width": 712,
+        "color": 3
+      },
+      "id": "8b1f9906-f27b-4409-af68-473f6ab4a0dc",
+      "name": "Exercise1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Here (check low sum), you see `Inline Validation` :point_down:",
+        "height": 80,
+        "width": 256,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -640,
+        -32
+      ],
+      "typeVersion": 1,
+      "id": "1dd2b412-58c5-4228-9e74-9082ad169a03",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "Open this node and go to the \"settings\" tab to see what retry on error looks like :point_down:",
+        "height": 80,
+        "width": 352,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1280,
+        -32
+      ],
+      "typeVersion": 1,
+      "id": "23a47bb9-66a1-464c-ba5e-618ebc2074cc",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Exercise 2 - Stop & Error\n\n**TASK: Throw an error after notification**\n1. Attach a Stop & Error node after the notification goes out\n2. Save the workflow\n\n**SUCCESS CRITERIA:**\n✓ Error node attached\n✓ Workflow saved\n",
+        "height": 236,
+        "width": 440,
+        "color": 3
+      },
+      "id": "cdb173f6-4cf7-448d-be11-83d06b48cfba",
+      "name": "Exercise2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        -96
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "Test",
+        "formDescription": "trigger a workflow from a form",
+        "responseMode": "lastNode",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -1472,
+        64
+      ],
+      "id": "a129dc10-b5a3-434b-b027-8f163156c9c1",
+      "name": "On form submission",
+      "webhookId": "41a8525b-7e8f-44ca-ac7b-0b721d5bb03c"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Submitted",
+        "completionMessage": "AWS limit exceeded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.3,
+      "position": [
+        -112,
+        160
+      ],
+      "id": "ce09aa1c-302d-44cd-9466-bb04192ee67c",
+      "name": "Form",
+      "webhookId": "bca50cad-df10-4fba-83ef-e70a6b62b856"
+    },
+    {
+      "parameters": {
+        "content": "# Form Trigger :eyes:",
+        "height": 80,
+        "width": 304,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1568,
+        208
+      ],
+      "typeVersion": 1,
+      "id": "ebf95ed3-db85-4eab-8903-248f6cc5a552",
+      "name": "Sticky Note3"
+    }
+  ],
+  "connections": {
+    "Send Summary to Microsoft Teams": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        []
+      ]
+    },
+    "Summarize": {
+      "main": [
+        []
+      ]
+    },
+    "normalize field name": {
+      "main": [
+        []
+      ]
+    },
+    "check low sum": {
+      "main": [
+        [
+          {
+            "node": "Success Processing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Summary to Microsoft Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pull data": {
+      "main": [
+        []
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "pull data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Form": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}

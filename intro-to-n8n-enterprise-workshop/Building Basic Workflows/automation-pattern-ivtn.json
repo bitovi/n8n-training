@@ -73,6 +73,16 @@
                 "type": "string",
                 "operation": "notEmpty"
               }
+            },
+            {
+              "id": "4ac8dac5-e465-4835-8070-d257ccb3fb29",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
           ],
           "combinator": "and"
@@ -163,7 +173,7 @@
     },
     {
       "parameters": {
-        "content": "## Exercise\n\n**TASK:**\n1. Add validation for currency field (must be USD)\n2. Add transform step calculating tax (7% of amount)\n3. Include tax amount in notification message\n4. Test with valid and invalid data\n5. Create Google Sheets node to log all processed transactions\n\n**SUCCESS CRITERIA:**\n✓ Invalid currency triggers error path\n✓ Tax calculated correctly\n✓ Both notifications work\n✓ Valid transactions logged to sheet",
+        "content": "## Exercise\n\n**TASK:**\n1. Add validation for currency field (must be USD)\n2. Add tax to the transform (7% of amount)\n3. Include tax amount in notification message\n4. Test with valid and invalid data\n\n**SUCCESS CRITERIA:**\n✓ Invalid currency triggers error path\n✓ Tax calculated correctly\n✓ Both notifications work",
         "height": 400,
         "width": 420,
         "color": 3
@@ -215,7 +225,7 @@
     },
     {
       "parameters": {
-        "content": "## Note to self\nuse <br> tags and use HTML format for proper formatting of the message in the messenger —include that in the explainer notes ",
+        "content": "## Pro Tip\nuse <br> tags and use HTML format for proper formatting of the message in MS Teams",
         "height": 240,
         "width": 352,
         "color": 6

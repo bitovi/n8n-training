@@ -1,0 +1,202 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "abdb0569-3b30-4d13-9bf4-86c9861342c4",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -208
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## MS Excel 365 Node\n\n**WHAT IT DOES:**\n* Connects to MS Excel 365 to read, write, and update data\n* Supports operations: append rows, update rows, get rows, clear sheets\n* Can work with multiple sheets in a spreadsheet\n\n**HOW TO USE:**\n2. Select the spreadsheet by ID or from list\n3. Choose operation (append, update, read)\n4. Map columns to your workflow data\n\n**USE CASES:**\n* Recording transaction logs\n  * Columns: `transaction_id`, `customer_id`, `...`\n* Importing customer data for processing\n  * Columns: `customer_id`, `first_name`, `...`\n\n**REFERENCES:**\nhttps://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.microsoftexcel/",
+        "height": 556,
+        "width": 400,
+        "color": 4
+      },
+      "id": "9745d353-527d-4b53-a75f-25f399fc0246",
+      "name": "Concept",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -64
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\nAdd a fourth field \"Status\" with value \"Processed\" to the Excel node\n6. Execute and verify data appears in the sheet\n\n**SUCCESS CRITERIA:**\n✓ Data appears in correct columns\n✓ Timestamp is accurate\n✓ No authentication errors",
+        "height": 288,
+        "width": 380,
+        "color": 3
+      },
+      "id": "dcde7c53-0c03-4217-b426-12aae103eaf6",
+      "name": "Exercise",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        704,
+        -64
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "worksheet",
+        "operation": "append",
+        "workbook": {
+          "__rl": true,
+          "value": "01Q6GADRC4BYXWRW6DBRCIPRYGSB32K35Q",
+          "mode": "list",
+          "cachedResultName": "bitovi-test-sheet",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1"
+        },
+        "worksheet": {
+          "__rl": true,
+          "value": "{00000000-0001-0000-0000-000000000000}",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://bitoviqctraining-my.sharepoint.com/personal/mgvozdev_bitoviqctraining_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B682F0E5C-C3DB-440C-87C7-069077A56FB0%7D&file=bitovi-test-sheet.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1&activeCell=Sheet1!A1"
+        },
+        "fieldsUi": {
+          "values": [
+            {
+              "column": "ID",
+              "fieldValue": "={{ Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000 }}"
+            },
+            {
+              "column": "date",
+              "fieldValue": "={{ $now.format('yyyy-MM-dd') }}"
+            },
+            {
+              "column": "expense_amount",
+              "fieldValue": "1703.05"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e9740f99-590a-44a9-ad9a-8ed6f9e3f808",
+      "name": "Microsoft Excel 365",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        -208
+      ],
+      "credentials": {
+        "microsoftExcelOAuth2Api": {
+          "id": "SMRY4PtjXydzF09W",
+          "name": "Microsoft Excel account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Example\n\n**OPERATION:** Append Row\n* Adds new row to the sheet\n\n**MAPPING:**\n* ID: Static text random key set by this workflow\n* expense_amount: expense amount for this ID. \nIn this case, it's hard-coded; in the actual workflow, it can also be accessed from the previous node using `{{ $json.fieldName }}`\n* date: Dynamic expression with the current date",
+        "height": 328,
+        "width": 400,
+        "color": 4
+      },
+      "id": "4990ba75-7157-4e41-8efb-dbfe05690d25",
+      "name": "Example Details",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        272,
+        -64
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Exercise\n\n**TASK:**\n1. Add another Excel 365 node to pull all data from `Sheet 1` of the same sheet.\n2. Sum the expense_amount for all rows\n3. Execute and verify data appears in the sheet\n\n**SUCCESS CRITERIA:**\n✓ New node exists to pull data\n✓ Sum is accurate",
+        "height": 288,
+        "width": 380,
+        "color": 3
+      },
+      "id": "61840183-d4c9-44fb-b733-aa3c2f786882",
+      "name": "Exercise1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        -64
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "expense_amount"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1360,
+        -208
+      ],
+      "id": "f823ca64-d214-4e24-86be-0e13c1b778cf",
+      "name": "Add Up expense amount"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        -208
+      ],
+      "id": "ac581b1d-08c6-4249-80f1-757fb1fda52e",
+      "name": "replace me"
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Excel 365",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Excel 365": {
+      "main": [
+        [
+          {
+            "node": "replace me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "replace me": {
+      "main": [
+        [
+          {
+            "node": "Add Up expense amount",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "eafa884a72aea4f20f1308aa8fd47f24d5b3727f04d9df18adaaf22cfa339cff"
+  }
+}
